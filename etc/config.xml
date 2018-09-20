@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <orderexport>
+            <automatic>
+                <active>0</active>
+                <change_status>0</change_status>
+                <new_status>processing</new_status>
+                <ftp_upload>0</ftp_upload>
+                <ftp_passive>0</ftp_passive>
+                <ftp_ssl>1</ftp_ssl>
+                <cron_schedule>0 18 * * *</cron_schedule>
+                <export_strategy>grouped</export_strategy>
+                <export_orders_daily>0</export_orders_daily>
+                <export_filename>order_%increment_id%_%export_date%</export_filename>
+                <export_file_type>csv</export_file_type>
+                <export_date_format>Y-m-d</export_date_format>
+            </automatic>
+        </orderexport>
+    </default>
+</config>

@@ -1,0 +1,53 @@
+<?php $export = $block->getExport(); ?>
+
+<div class="page-main-actions">
+    <div class="page-actions-placeholder"></div>
+    <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+        <div class="page-actions-inner">
+            <div class="page-actions-buttons">
+                <button id="back" title="Back" type="button" class="action- scalable back" onclick="setLocation('<?= $block->getUrl('*/*/list') ?>')" data-ui-id="back-button">
+                    <span>Back</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="admin__table-secondary">
+    <tr>
+        <th><?=__('Id')?></th>
+        <td><?= $export->getExportId() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Type')?></th>
+        <td><?= $export->getType() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Searched order status')?></th>
+        <td><?= $export->getSearchOrderStatus() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Exported filename')?></th>
+        <td><?= $export->getExportedFilename() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Started at')?></th>
+        <td><?= $export->getStartedAt() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Finished at')?></th>
+        <td><?= $export->getFinishedAt() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Exported orders amount')?></th>
+        <td><?= $export->getSuccess() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Exported IDs')?></th>
+        <td><?= $export->getSuccessIds() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Uploaded Files Status')?></th>
+        <td><?= nl2br($export->getUploadedFilesStatus()) ?></td>
+    </tr>
+</table>

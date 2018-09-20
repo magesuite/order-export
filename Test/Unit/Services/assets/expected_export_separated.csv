@@ -1,0 +1,4 @@
+increment_id;name;telephone;email;company;address;city;postcode;region;country;shipping_name;shipping_company;shipping_address;shipping_city;shipping_postcode;shipping_region;shipping_country;shipping_amount;shipping_method;payment_method;sku;product_name;quantity;price
+100000001;"firstname lastname";11111111;customer@null.com;;street;"Los Angeles";11111;CA;US;"firstname lastname";;street;"Los Angeles";11111;CA;US;5;flatrate_flatrate;checkmo;;;;
+100000001;;;;;;;;;;;;;;;;;;;;sku0;TestName;2;10
+100000001;;;;;;;;;;;;;;;;;;;;sku1;TestName2;2;10
