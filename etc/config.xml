@@ -4,7 +4,7 @@
         <orderexport>
             <automatic>
                 <active>0</active>
-                <change_status>0</change_status>
+                <change_status_after_export>0</change_status_after_export>
                 <new_status>processing</new_status>
                 <ftp_upload>0</ftp_upload>
                 <ftp_passive>0</ftp_passive>

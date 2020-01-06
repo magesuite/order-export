@@ -1,0 +1,188 @@
+@oe_feature-background-color: #f9f9f9;
+@oe_buttons-container-background-color: #f1f1f1;
+@oe_buttons-container-height: 8rem;
+@oe_error-msg-container-background-color: #ffcdcd;
+@oe_success-color: #3bb54b;
+@oe_error-color: #e85034;
+@oe_progress-line-incomplete-border: solid 1px #e4e5e6;
+@oe_progress-line-completed-border: solid 2px #e4e5e6;
+@oe_progress-line-before-error-color: #cfd0d1;
+@oe_progress-status-circle-size: 2rem;
+@oe_progress-status-circle-border: 1px solid #d1d1d1;
+@oe_step-image-incomplete-color: #d1d1d1;
+
+.erp {
+  background-color: @oe_feature-background-color;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  &__containers {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin-bottom: @oe_buttons-container-height;
+  }
+
+  &__step-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 13%;
+    position: relative;
+
+    &:not(:last-child) .erp__step-status-container::after {
+      content: '';
+      position: absolute;
+      left: ~'calc(50% + (@{oe_progress-status-circle-size} / 2))';
+      width: ~'calc(100% - @{oe_progress-status-circle-size})';
+      border-top: @oe_progress-line-incomplete-border;
+      border-bottom: @oe_progress-line-incomplete-border;
+      height: 0.6rem;
+      z-index: 1;
+    }
+
+    &:not(:first-child) .completed.erp__step-status-container::before {
+      content: '';
+      position: absolute;
+      right: ~'calc(50% + @{oe_progress-status-circle-size} / 2)';
+      width: ~'calc(100% - @{oe_progress-status-circle-size})';
+      border-top: @oe_progress-line-completed-border;
+      border-bottom: @oe_progress-line-completed-border;
+      height: 0.6rem;
+      z-index: 1;
+      background-color: @oe_success-color;
+    }
+
+    &:last-child .completed.erp__step-status-container::after {
+      content: none;
+    }
+
+    &:not(:first-child) .error.erp__step-status-container::before {
+      content: '';
+      position: absolute;
+      right: ~'calc(50% + @{oe_progress-status-circle-size} / 2)';
+      width: ~'calc(100% - @{oe_progress-status-circle-size})';
+      border-top: @oe_progress-line-incomplete-border;
+      border-bottom: @oe_progress-line-incomplete-border;
+      height: 0.4rem;
+      z-index: 2;
+      background-color: @oe_progress-line-before-error-color;
+    }
+  }
+
+  &__step-image {
+    fill: @oe_step-image-incomplete-color;
+
+    &-container {
+      background-color: white;
+      margin: 0 auto;
+      border-radius: 50%;
+      padding: 2rem;
+      margin: 3rem 0 2rem;
+    }
+
+    &.completed {
+      fill: @oe_success-color;
+    }
+
+    &.error {
+      fill: @oe_error-color;
+    }
+  }
+
+  &__step-status {
+    fill: white;
+
+    &-container {
+      background-color: white;
+      border-radius: 50%;
+      border: @oe_progress-status-circle-border;
+      width: @oe_progress-status-circle-size;
+      height: @oe_progress-status-circle-size;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 2rem;
+
+      &.completed {
+        background-color: @oe_success-color;
+      }
+
+      &.error {
+        background-color: @oe_error-color;
+      }
+    }
+
+    svg {
+      display: block;
+      width: 1rem;
+      height: 0.9rem;
+    }
+  }
+
+  &__step-label {
+    text-align: center;
+
+    &-container {
+      width: 100%;
+      margin-bottom: 3rem;
+      padding: 0 0.5rem;
+
+      .error & {
+        color: @oe_error-color;
+      }
+    }
+  }
+  &__buttons {
+    &-container {
+      width: 100%;
+      height: @oe_buttons-container-height;
+      background-color: @oe_buttons-container-background-color;
+    }
+
+    &-section {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 2rem;
+
+      & > button {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  &__download-exp-file-button,
+  &__export-log-button {
+    height: 3rem;
+  }
+
+  &__error-msg {
+    margin: 0 2.5rem;
+    padding: 1rem 0;
+    background-color: @oe_error-msg-container-background-color;
+    display: flex;
+    align-items: center;
+
+    svg {
+      display: block;
+      fill: @oe_error-color;
+      margin: 0 2rem;
+      height: 2rem;
+      width: 2rem;
+    }
+
+    &-container {
+      width: 100%;
+      position: absolute;
+      bottom: ~'calc(1.3 * @{oe_buttons-container-height})';
+    }
+  }
+}

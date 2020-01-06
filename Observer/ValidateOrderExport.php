@@ -2,27 +2,22 @@
 
 namespace MageSuite\OrderExport\Observer;
 
-use MageSuite\OrderExport\Services\FTP\Uploader;
-use Magento\Framework\Event\ObserverInterface;
-
-class ValidateOrderExport implements ObserverInterface
+class ValidateOrderExport implements \Magento\Framework\Event\ObserverInterface
 {
-
+    /**
+     * @var \MageSuite\OrderExport\Service\FTP\Validator
+     */
+    protected $validator;
 
     /**
-     * @var \MageSuite\OrderExport\Services\FTP\Validator
+     * @var \MageSuite\OrderExport\Api\ExportRepositoryInterface
      */
-    private $validator;
-    /**
-     * @var \MageSuite\OrderExport\Repository\ExportRepository
-     */
-    private $exportRepository;
+    protected $exportRepository;
 
     public function __construct(
-        \MageSuite\OrderExport\Services\FTP\Validator $validator,
-        \MageSuite\OrderExport\Repository\ExportRepository $exportRepository
-    )
-    {
+        \MageSuite\OrderExport\Service\FTP\Validator $validator,
+        \MageSuite\OrderExport\Api\ExportRepositoryInterface $exportRepository
+    ) {
         $this->validator = $validator;
         $this->exportRepository = $exportRepository;
     }

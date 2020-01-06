@@ -1,0 +1,63 @@
+<?php if ($block->canShow()) : ?>
+    <?php
+    $statuses = $block->getMatchedStatuses();
+    $downloadUrl = $block->getDownloadUrl();
+    $exportLogUrl = $block->getExportLogUrl();
+    ?>
+    <section class="admin__page-section order-view-erp">
+        <div class="admin__page-section-title">
+            <span class="title">ERP Status</span>
+        </div>
+        <div class="admin__page-section-content erp">
+            <div class="admin__page-section-item erp__content">
+                <div class="admin__page-section-item-content erp__containers" id="erp">
+                    <?php foreach ($statuses as $status) : ?>
+                        <div class="erp__step-container">
+                            <div class="erp__step-image-container">
+                                <div class="erp__step-image <?= /* @escapeNotVerified */ $block->getStatusCssClass($status['completed'], $status['error']); ?>">
+                                    <?= /* @escapeNotVerified */ $block->getStatusImage($status['status']); ?>
+                                </div>
+                            </div>
+                            <div class="erp__step-status-container <?= /* @escapeNotVerified */ $block->getStatusCssClass($status['completed'], $status['error']); ?>">
+                                <div class="erp__step-status <?= /* @escapeNotVerified */ $block->getStatusCssClass($status['completed'], $status['error']); ?>">
+                                    <?php if ($status['completed']): ?>
+                                        <?= /* @escapeNotVerified */ $block->getStatusImage('check'); ?>
+                                    <?php else: ?>
+                                        <?= /* @escapeNotVerified */ $block->getStatusImage('error'); ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="erp__step-label-container <?= /* @escapeNotVerified */ $block->getStatusCssClass($status['completed'], $status['error']); ?>">
+                                <div class="erp__step-label <?= /* @escapeNotVerified */ $block->getStatusCssClass($status['completed'], $status['error']); ?>">
+                                    <?= /* @escapeNotVerified */ $status['label']; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if ($status['error']): ?>
+                            <div class="erp__error-msg-container">
+                                <div class="erp__error-msg">
+                                    <?= /* @escapeNotVerified */ $block->getStatusImage('error'); ?>
+                                    <?= /* @escapeNotVerified */ $status['error_message']; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+                <div class="erp__buttons-container">
+                    <div class="erp__buttons-section">
+                        <?php if ($downloadUrl) : ?>
+                            <button id="download_file" title="Download export file" type="button" class="action-default scalable action-save action-secondary erp__download-exp-file-button" onclick="setLocation('<?= $downloadUrl; ?>');" data-ui-id="widget-button-0">
+                                <span><?= /* @escapeNotVerified */ __('Download export file'); ?></span>
+                            </button>
+                        <?php endif; ?>
+                        <?php if ($exportLogUrl) : ?>
+                            <button id="export_log" title="Export log" type="button" class="action-default scalable action-save action-secondary erp__export-log-button" onclick="window.open('<?= $exportLogUrl; ?>');" data-ui-id="widget-button-0">
+                                <span><?= /* @escapeNotVerified */ __('Export log'); ?></span>
+                            </button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php endif; ?>

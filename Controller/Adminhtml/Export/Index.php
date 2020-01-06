@@ -2,29 +2,15 @@
 
 namespace MageSuite\OrderExport\Controller\Adminhtml\Export;
 
-class Index extends \Magento\Backend\App\Action
+class Index extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
-
-    /**
-     * @var bool|\Magento\Framework\View\Result\PageFactory
-     */
-    protected $resultPageFactory = false;
-
-    public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
-    ) {
-        parent::__construct($context);
-        $this->resultPageFactory = $resultPageFactory;
-    }
+    const ADMIN_RESOURCE = 'MageSuite_OrderExport::config_orderexport';
 
     public function execute()
     {
-        $resultPage = $this->resultPageFactory->create();
-
-        $resultPage->getConfig()->getTitle()->prepend(__('Order Export'));
+        $resultPage = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_PAGE);
+        $resultPage->getConfig()->getTitle()->prepend(__('Orders Export Logs'));
 
         return $resultPage;
     }
-
 }

@@ -2,56 +2,48 @@
 
 namespace MageSuite\OrderExport\Controller\Adminhtml\Export;
 
-class Show extends \Magento\Backend\App\Action
+class Show extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
-    protected $resultPageFactory = false;
+    const ADMIN_RESOURCE = 'MageSuite_OrderExport::config_orderexport';
+
     /**
      * @var \Magento\Framework\Registry
      */
-    private $registry;
+    protected $registry;
 
     /**
-     * @var \MageSuite\OrderExport\Repository\ExportRepository
+     * @var \MageSuite\OrderExport\Api\ExportRepositoryInterface
      */
-    private $exportRepository;
-    /**
-     * @var \Magento\Framework\Controller\Result\RedirectFactory
-     */
-    private $redirectFactory;
+    protected $exportRepository;
 
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Registry $registry,
-        \MageSuite\OrderExport\Repository\ExportRepository $exportRepository,
-        \Magento\Framework\Controller\Result\RedirectFactory $redirectFactory
+        \MageSuite\OrderExport\Api\ExportRepositoryInterface $exportRepository
     ) {
         parent::__construct($context);
 
-        $this->resultPageFactory = $resultPageFactory;
         $this->registry = $registry;
         $this->exportRepository = $exportRepository;
-        $this->redirectFactory = $redirectFactory;
     }
 
     public function execute()
     {
-        $resultPage = $this->resultPageFactory->create();
+        $exportId = $this->getRequest()->getParam('export_id');
 
-        $exportId = $this->getRequest()->getParam('id', 0);
+        try {
+            $export = $this->exportRepository->getById($exportId);
+            $this->registry->register('orderexport_export', $export);
 
-        $export = $this->exportRepository->getById($exportId);
+            $result = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_PAGE);
+            $result->getConfig()->getTitle()->prepend(__('Orders Export Log'));
 
-        $this->registry->register('orderexport_export', $export);
-
-        $resultPage->getConfig()->getTitle()->prepend(__('Orders Export Log'));
-
-        if(empty($export)) {
-            $redirect = $this->redirectFactory->create();
-            $redirect->setPath('*/*/grid');
-            return $redirect;
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+            $result = $this->resultRedirectFactory->create();
+            $this->messageManager->addErrorMessage(__('Item does not exist.'));
+            $result->setPath('*/*/index');
         }
 
-        return $resultPage;
+        return $result;
     }
 }

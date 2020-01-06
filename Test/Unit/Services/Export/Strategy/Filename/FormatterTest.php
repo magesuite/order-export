@@ -1,34 +1,35 @@
 <?php
 
-namespace MageSuite\OrderExport\Test\Unit\Services\Export\Strategy\Filename;
+namespace MageSuite\OrderExport\Test\Unit\Service\Export\Strategy\Filename;
 
-use Magento\TestFramework\Helper\Bootstrap;
-use PHPUnit\Framework\TestCase;
-
-class FormatterTest extends TestCase
+class FormatterTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \MageSuite\OrderExport\Services\Export\Strategy\Filename\Formatter
+     * @var \MageSuite\OrderExport\Service\Filename\Formatter
      */
     protected $formatter;
 
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var \MageSuite\OrderExport\Helper\Configuration
      */
-    protected $storeConfig;
+    protected $configuration;
 
 
     protected function setUp()
     {
-        $this->formatter = Bootstrap::getObjectManager()->create('MageSuite\OrderExport\Services\Export\Strategy\Filename\Formatter');
-        $this->storeConfig = Bootstrap::getObjectManager()->create('\Magento\Framework\App\Config\ScopeConfigInterface');
+        $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
+
+        $this->formatter = $objectManager->create(\MageSuite\OrderExport\Service\Filename\Formatter::class);
+        $this->configuration = $objectManager->create(\MageSuite\OrderExport\Helper\Configuration::class);
     }
 
     public function testItReturnsCorrectExportFilename()
     {
         $date = new \DateTime();
-        $dateFormat = $this->storeConfig->getValue('orderexport/automatic/export_date_format', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        $exportType = $this->storeConfig->getValue('orderexport/automatic/export_file_type', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
+        $dateFormat = $this->configuration->getExportDateFormat();
+        $exportType = $this->configuration->getExportFileType();
+
         $filename = $this->formatter->getFilename('102933099', 'separated');
 
         $expected = 'order_102933099_' . $date->format($dateFormat) . '.' . $exportType;

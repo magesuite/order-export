@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">orderexport_log_listing.orderexport_log_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons />
+        <spinner>orderexport_log_columns</spinner>
+        <deps>
+            <dep>orderexport_log_listing.orderexport_log_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="orderexport_log_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>MageSuite_OrderExport::config_orderexport</aclResource>
+        <dataProvider class="MageSuite\OrderExport\Ui\DataProvider\LogDataProvider" name="orderexport_log_listing_data_source">
+            <settings>
+                <requestFieldName>export_id</requestFieldName>
+                <primaryFieldName>export_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="name"/>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="orderexport_log_columns">
+        <column name="export_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="type" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Type</label>
+            </settings>
+        </column>
+        <column name="exported_filename" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Exported Filename</label>
+            </settings>
+        </column>
+        <column name="success" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Exported Orders Amount</label>
+            </settings>
+        </column>
+
+        <column name="started_at" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Started At</label>
+            </settings>
+        </column>
+
+        <column name="finished_at" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Finished At</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="MageSuite\OrderExport\Ui\Component\Listing\Column\LogActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="showUrlPath" xsi:type="string">orderexport/export/show</item>
+                </item>
+            </argument>
+            <settings>
+                <indexField>export_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

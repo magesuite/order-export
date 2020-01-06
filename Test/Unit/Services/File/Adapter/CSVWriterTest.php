@@ -1,20 +1,17 @@
 <?php
 
-namespace MageSuite\OrderExport\Test\Unit\Services\File;
+namespace MageSuite\OrderExport\Test\Unit\Service\File;
 
-use PHPUnit\Framework\TestCase;
-
-class CSVWriterTest extends TestCase
+class CSVWriterTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
-     * @var \MageSuite\OrderExport\Services\File\Writer
+     * @var \MageSuite\OrderExport\Service\Writer\WriterInterface
      */
     protected $writer;
 
     public function setUp()
     {
-        $this->writer = new \MageSuite\OrderExport\Services\File\Adapter\CSVWriter();
+        $this->writer = new \MageSuite\OrderExport\Service\Writer\Csv();
     }
 
     public function testItWritesToFileProperly()

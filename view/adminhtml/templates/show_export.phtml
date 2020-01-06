@@ -1,4 +1,7 @@
-<?php $export = $block->getExport(); ?>
+<?php
+/** @var \MageSuite\OrderExport\Api\Data\ExportInterface $export */
+$export = $block->getExport();
+?>
 
 <div class="page-main-actions">
     <div class="page-actions-placeholder"></div>
@@ -6,7 +9,7 @@
         <div class="page-actions-inner">
             <div class="page-actions-buttons">
                 <button id="back" title="Back" type="button" class="action- scalable back" onclick="setLocation('<?= $block->getUrl('*/*/list') ?>')" data-ui-id="back-button">
-                    <span>Back</span>
+                    <span><?= __('Back'); ?></span>
                 </button>
             </div>
         </div>

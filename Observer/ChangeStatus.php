@@ -2,36 +2,30 @@
 
 namespace MageSuite\OrderExport\Observer;
 
-use Magento\Framework\Event\ObserverInterface;
-use Magento\Sales\Model\Order;
-
-class ChangeStatus implements ObserverInterface
+class ChangeStatus implements \Magento\Framework\Event\ObserverInterface
 {
-
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var \MageSuite\OrderExport\Helper\Configuration
      */
-    private $scopeConfig;
+    protected $configuration;
 
-    public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig)
+    public function __construct(\MageSuite\OrderExport\Helper\Configuration $configuration)
     {
-        $this->scopeConfig = $scopeConfig;
+        $this->configuration = $configuration;
     }
 
-    /**
-     * @param \Magento\Framework\Event\Observer $observer
-     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $changeStatus = $this->scopeConfig->getValue('orderexport/automatic/change_status', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        $newStatus = $this->scopeConfig->getValue('orderexport/automatic/new_status', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        if ($changeStatus) {
-            $orders = $observer->getEvent()->getData('orders');
-            /** @var Order $order */
-            foreach ($orders as $order) {
-                $order->addStatusToHistory($newStatus, 'Order has been exported', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);;
-                $order->save();
-            }
+        if (!$this->configuration->changeStatusAfterExport()) {
+            return;
+        }
+
+        $newStatus = $this->configuration->getNewStatus();
+        $orders = $observer->getEvent()->getData('orders');
+
+        foreach ($orders as $order) {
+            $order->addStatusToHistory($newStatus, __('Order has been exported'), \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            $order->save();
         }
     }
 }

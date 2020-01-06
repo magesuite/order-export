@@ -1,20 +1,17 @@
 <?php
 
-namespace MageSuite\OrderExport\Test\Unit\Services\File;
+namespace MageSuite\OrderExport\Test\Unit\Service\File;
 
-use PHPUnit\Framework\TestCase;
-
-class XMLWriterTest extends TestCase
+class XMLWriterTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
-     * @var \MageSuite\OrderExport\Services\File\Writer
+     * @var \MageSuite\OrderExport\Service\Writer\WriterInterface
      */
     protected $writer;
 
     public function setUp()
     {
-        $this->writer = new \MageSuite\OrderExport\Services\File\Adapter\XMLWriter();
+        $this->writer = new \MageSuite\OrderExport\Service\Writer\Xml();
     }
 
     public function testItWritesToFileProperly()
@@ -30,7 +27,7 @@ class XMLWriterTest extends TestCase
                 'last_name' => 'lastname',
                 'telephone' => '11111111',
                 'email' => 'customer@null.com',
-                'company' => NULL,
+                'company' => null,
                 'address' => 'street',
                 'city' => 'Los Angeles',
                 'postcode' => '11111',
@@ -40,7 +37,7 @@ class XMLWriterTest extends TestCase
                 'shipping_name' => 'firstname lastname',
                 'shipping_first_name' => 'firstname',
                 'shipping_last_name' => 'lastname',
-                'shipping_company' => NULL,
+                'shipping_company' => null,
                 'shipping_address' => 'street',
                 'shipping_city' => 'Los Angeles',
                 'shipping_postcode' => '11111',
@@ -91,5 +88,4 @@ class XMLWriterTest extends TestCase
 
         unlink(__DIR__ . '/write_test.xml');
     }
-
 }

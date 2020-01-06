@@ -10,7 +10,7 @@
             <resource>MageSuite_OrderExport::config_orderexport</resource>
             <group id="automatic" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Automatic export</label>
-                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="is_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable export by cron</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
@@ -18,7 +18,7 @@
                     <label>Cron Schedule</label>
                     <comment>Please type full cron schedule expression, eg. '59 23 * * *'</comment>
                 </field>
-                <field id="change_status" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="change_status_after_export" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Change status after export</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
@@ -40,36 +40,36 @@
                     <comment>Please type format of the date which you want to be put into the export filename. Example 'Y-m-d'</comment>
                 </field>
 
-                <field id="ftp_upload" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="is_ftp_upload_enabled" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Upload to FTP</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="ftp_host" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Host</label>
-                    <depends><field id='ftp_upload'>1</field></depends>
+                    <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
                 <field id="ftp_ssl" translate="label" type="select" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Use SSL</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends><field id='ftp_upload'>1</field></depends>
+                    <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
                 <field id="ftp_passive" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Passive</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends><field id='ftp_upload'>1</field></depends>
+                    <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
                 <field id="ftp_login" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Login</label>
-                    <depends><field id='ftp_upload'>1</field></depends>
+                    <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
                 <field id='ftp_password' translate='label' type='password' sortOrder="110" showInDefault='1'>
                     <label>Password</label>
-                    <depends><field id='ftp_upload'>1</field></depends>
+                    <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
                 <field id="ftp_path" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Remote path</label>
                     <comment>Path where file will be save. Slash must be on the end (example /order-export/)</comment>
-                    <depends><field id='ftp_upload'>1</field></depends>
+                    <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
             </group>
         </section>
