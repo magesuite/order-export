@@ -30,10 +30,6 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
         ];
 
         foreach ($order->getAllItems() as $item) {
-            if ($item->getProductType() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
-                continue;
-            }
-
             $result['items'][] = $this->orderItemConverter->convert($item);
         }
 

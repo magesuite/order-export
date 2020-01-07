@@ -32,7 +32,6 @@ class Separated extends \MageSuite\OrderExport\Service\Export\Exporter
             $exportResult['filename'] = $filename;
             $exportResult['filepath'] = $filePath;
             $writer->closeFile();
-            $filePath = '';
         }
         $exportResult['ordersData'] = $orderUploadData;
         return $exportResult;
