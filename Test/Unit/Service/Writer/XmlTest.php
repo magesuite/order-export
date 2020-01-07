@@ -46,7 +46,7 @@ class XmlTest extends \PHPUnit\Framework\TestCase
                 'shipping_amount' => '5',
                 'shipping_method' => 'flatrate_flatrate',
                 'payment_method' => 'checkmo',
-                'creation_date' => '2018-01-24 15:43:55',
+                'created_at' => '2018-01-24 15:43:55',
                 'store_id' => '1',
                 'customer_id' => '1'
             ],

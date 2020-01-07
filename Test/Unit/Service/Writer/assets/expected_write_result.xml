@@ -23,7 +23,7 @@
     <DeliveryAddress>
       <Title>Mr</Title>
       <FirstName>firstname</FirstName>
-      <LastName>firstname</LastName>
+      <LastName>lastname</LastName>
       <Company/>
       <Street1>street</Street1>
       <Country>US</Country>
@@ -44,7 +44,7 @@
   </Address>
   <Cart>
     <Item>
-      <PosNo>title</PosNo>
+      <PosNo>1</PosNo>
       <ErpProductNo>34</ErpProductNo>
       <MagentoProductNo>34</MagentoProductNo>
       <MagentoProductSku>sku0</MagentoProductSku>
@@ -53,7 +53,7 @@
       <PricePerItem>10</PricePerItem>
     </Item>
     <Item>
-      <PosNo>title</PosNo>
+      <PosNo>2</PosNo>
       <ErpProductNo>34</ErpProductNo>
       <MagentoProductNo>34</MagentoProductNo>
       <MagentoProductSku>sku1</MagentoProductSku>
