@@ -106,6 +106,4 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
     {
         return substr(strstr($shippingMethodTitle, ' '), 1);
     }
-
-
 }

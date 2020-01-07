@@ -6,6 +6,7 @@
                 <active>0</active>
                 <change_status_after_export>0</change_status_after_export>
                 <new_status>processing</new_status>
+                <export_strategy>separated</export_strategy>
                 <is_ftp_upload_enabled>0</is_ftp_upload_enabled>
                 <ftp_passive>0</ftp_passive>
                 <ftp_ssl>1</ftp_ssl>

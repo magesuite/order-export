@@ -14,67 +14,71 @@
                     <label>Enable export by cron</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="cron_schedule" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="cron_schedule" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Cron Schedule</label>
                     <comment>Please type full cron schedule expression, eg. '59 23 * * *'</comment>
                 </field>
-                <field id="log_all_exports" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="log_all_exports" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Log all exports</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>If it is set to 'Yes', or exports will be logged, including those that do not export any order</comment>
                 </field>
-                <field id="change_status_after_export" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="change_status_after_export" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Change status after export</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="new_status" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="new_status" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>New status</label>
                     <source_model>MageSuite\OrderExport\Model\Config\Source\Order\Status</source_model>
                 </field>
-                <field id="export_file_type" translate="label" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="export_strategy" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Export strategy</label>
+                    <source_model>MageSuite\OrderExport\Model\Config\Source\Export\Strategy</source_model>
+                </field>
+                <field id="export_file_type" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Export File Type</label>
                     <comment>Choose between .csv and .xml type (default is .csv)</comment>
                     <source_model>MageSuite\OrderExport\Model\Config\Source\Export\Type</source_model>
                 </field>
-                <field id="export_filename" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="export_filename" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Export Filename</label>
                     <comment>Please type export filename, you can use %increment_id% (only if orders are exported in separated files) or %export_date%. Example 'order_%increment_id%_%export_date%.csv'</comment>
                 </field>
-                <field id="export_date_format" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="export_date_format" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Export Date Format</label>
                     <comment>Please type format of the date which you want to be put into the export filename. Example 'Y-m-d'</comment>
                 </field>
-                <field id="upload_path" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="upload_path" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Upload Path</label>
                     <comment>Please provide path where order export files should be stored. Example 'orderexport/'</comment>
                 </field>
-                <field id="is_ftp_upload_enabled" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="is_ftp_upload_enabled" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Upload to FTP</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="ftp_host" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ftp_host" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Host</label>
                     <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
-                <field id="ftp_ssl" translate="label" type="select" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ftp_ssl" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Use SSL</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
-                <field id="ftp_passive" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ftp_passive" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Passive</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
-                <field id="ftp_login" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ftp_login" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Login</label>
                     <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
-                <field id='ftp_password' translate='label' type='password' sortOrder="110" showInDefault='1'>
+                <field id='ftp_password' translate='label' type='password' sortOrder="160" showInDefault='1'>
                     <label>Password</label>
                     <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
-                <field id="ftp_path" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ftp_path" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Remote path</label>
                     <comment>Path where file will be save. Slash must be on the end (example /order-export/)</comment>
                     <depends><field id='is_ftp_upload_enabled'>1</field></depends>

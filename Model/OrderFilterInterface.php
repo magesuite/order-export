@@ -5,8 +5,8 @@ namespace MageSuite\OrderExport\Model;
 interface OrderFilterInterface
 {
     /**
-     * @param array $filterData
+     * @param array|null $filterData
      * @return array
      */
-    public function getFilters($filterData);
+    public function getFilters($filterData = []);
 }

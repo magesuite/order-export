@@ -14,7 +14,7 @@ class OrderFilter implements \MageSuite\OrderExport\Model\OrderFilterInterface
         $this->configuration = $configuration;
     }
 
-    public function getFilters($filterData)
+    public function getFilters($filterData = [])
     {
         $filters = [];
 
