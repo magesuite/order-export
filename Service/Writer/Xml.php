@@ -4,18 +4,14 @@ namespace MageSuite\OrderExport\Service\Writer;
 
 class Xml implements \MageSuite\OrderExport\Service\Writer\WriterInterface
 {
-
     protected $data;
 
     protected $fileHandler;
 
-    /**
-     * @param string $filePath
-     */
     public function openFile($filePath)
     {
         $this->checkPath($filePath);
-        $this->fileHandler = fopen($filePath, "w");
+        $this->fileHandler = fopen($filePath, 'w');
     }
 
     public function closeFile()
@@ -94,10 +90,7 @@ class Xml implements \MageSuite\OrderExport\Service\Writer\WriterInterface
         fputs($this->fileHandler, $xml->saveXML());
     }
 
-    /**
-     * @param string $filePath
-     */
-    private function checkPath($filePath)
+    protected function checkPath($filePath)
     {
         $dir = dirname($filePath);
         if (!is_dir($dir)) {
@@ -125,9 +118,9 @@ class Xml implements \MageSuite\OrderExport\Service\Writer\WriterInterface
         $magentoClientId = $dom->createElement('MagentoClientId', $data['order']['customer_id']);
         $client->appendChild($magentoClientId);
 
-        $orderDate = $dom->createElement('OrderDate', $data['order']['creation_date']);
+        $orderDate = $dom->createElement('OrderDate', $data['order']['created_at']);
 
-        $magentoOrderNo = $dom->createElement('MagentoOrderNo', $data['increment_id']);
+        $magentoOrderNo = $dom->createElement('MagentoOrderNo', $data['order']['increment_id']);
 
         $headElement->appendChild($mode);
         $headElement->appendChild($merchant);
@@ -189,46 +182,68 @@ class Xml implements \MageSuite\OrderExport\Service\Writer\WriterInterface
         $deliveryAddress = $dom->createElement('DeliveryAddress');
 
         $title = $dom->createElement('Title', $data['order']['shipping_prefix']);
-        $firstName = $dom->createElement('FirstName', $data['order']['shipping_first_name']);
-        $lastName = $dom->createElement('LastName', $data['order']['shipping_first_name']);
-        $company = $dom->createElement('Company', $data['order']['shipping_company']);
-        $street1 = $dom->createElement('Street1', $data['order']['shipping_address']);
-        $country = $dom->createElement('Country', $data['order']['shipping_country']);
-        $zip = $dom->createElement('ZipCode', $data['order']['shipping_postcode']);
-        $city = $dom->createElement('City', $data['order']['shipping_city']);
-
         $deliveryAddress->appendChild($title);
+
+        $firstName = $dom->createElement('FirstName');
+        $firstName->appendChild($dom->createTextNode($data['order']['shipping_first_name']));
         $deliveryAddress->appendChild($firstName);
+
+        $lastName = $dom->createElement('LastName');
+        $lastName->appendChild($dom->createTextNode($data['order']['shipping_last_name']));
         $deliveryAddress->appendChild($lastName);
+
+        $company = $dom->createElement('Company');
+        $company->appendChild($dom->createTextNode($data['order']['shipping_company']));
         $deliveryAddress->appendChild($company);
+
+        $street1 = $dom->createElement('Street1');
+        $street1->appendChild($dom->createTextNode($data['order']['shipping_address']));
         $deliveryAddress->appendChild($street1);
+
+        $country = $dom->createElement('Country', $data['order']['shipping_country']);
         $deliveryAddress->appendChild($country);
+
+        $zip = $dom->createElement('ZipCode', $data['order']['shipping_postcode']);
         $deliveryAddress->appendChild($zip);
+
+        $city = $dom->createElement('City', $data['order']['shipping_city']);
         $deliveryAddress->appendChild($city);
+
+        $addressElement->appendChild($deliveryAddress);
 
         $invoiceAddress = $dom->createElement('InvoiceAddress');
 
         $title = $dom->createElement('Title', $data['order']['prefix']);
-        $firstName = $dom->createElement('FirstName', $data['order']['first_name']);
-        $lastName = $dom->createElement('LastName', $data['order']['last_name']);
-        $email = $dom->createElement('Email', $data['order']['email']);
-        $company = $dom->createElement('Company', $data['order']['company']);
-        $street1 = $dom->createElement('Street1', $data['order']['address']);
-        $country = $dom->createElement('Country', $data['order']['country']);
-        $zip = $dom->createElement('ZipCode', $data['order']['postcode']);
-        $city = $dom->createElement('City', $data['order']['city']);
-
         $invoiceAddress->appendChild($title);
+
+        $firstName = $dom->createElement('FirstName');
+        $firstName->appendChild($dom->createTextNode($data['order']['first_name']));
         $invoiceAddress->appendChild($firstName);
+
+        $lastName = $dom->createElement('LastName');
+        $lastName->appendChild($dom->createTextNode($data['order']['last_name']));
         $invoiceAddress->appendChild($lastName);
+
+        $email = $dom->createElement('Email', $data['order']['email']);
         $invoiceAddress->appendChild($email);
+
+        $company = $dom->createElement('Company');
+        $company->appendChild($dom->createTextNode($data['order']['company']));
         $invoiceAddress->appendChild($company);
+
+        $street1 = $dom->createElement('Street1');
+        $street1->appendChild($dom->createTextNode($data['order']['address']));
         $invoiceAddress->appendChild($street1);
+
+        $country = $dom->createElement('Country', $data['order']['country']);
         $invoiceAddress->appendChild($country);
+
+        $zip = $dom->createElement('ZipCode', $data['order']['postcode']);
         $invoiceAddress->appendChild($zip);
+
+        $city = $dom->createElement('City', $data['order']['city']);
         $invoiceAddress->appendChild($city);
 
-        $addressElement->appendChild($deliveryAddress);
         $addressElement->appendChild($invoiceAddress);
 
         $dom->appendChild($addressElement);
@@ -245,27 +260,37 @@ class Xml implements \MageSuite\OrderExport\Service\Writer\WriterInterface
 
         $cartElement = $dom->createElement('Cart');
 
+        $i = 1;
+
         foreach ($data['items'] as $item) {
             $itemNode = $dom->createElement('Item');
 
-            $posNo = $dom->createElement('PosNo', 'title');
-            $erpProductNo = $dom->createElement('ErpProductNo', $item['product_id']);
-            $MagentoProductNo = $dom->createElement('MagentoProductNo', $item['product_id']);
-            $MagentoProductSku = $dom->createElement('MagentoProductSku', $item['sku']);
-            $productName = $dom->createElement('ProductName', $item['product_name']);
-            $qty = $dom->createElement('Quantity', $item['quantity']);
-            $pricePerItem = $dom->createElement('PricePerItem', $item['price']);
-
+            $posNo = $dom->createElement('PosNo', $i);
             $itemNode->appendChild($posNo);
+
+            $erpProductNo = $dom->createElement('ErpProductNo', $item['product_id']);
             $itemNode->appendChild($erpProductNo);
+
+            $MagentoProductNo = $dom->createElement('MagentoProductNo', $item['product_id']);
             $itemNode->appendChild($MagentoProductNo);
+
+            $MagentoProductSku = $dom->createElement('MagentoProductSku', $item['sku']);
             $itemNode->appendChild($MagentoProductSku);
+
+            $productName = $dom->createElement('ProductName');
+            $productName->appendChild($dom->createTextNode($item['product_name']));
             $itemNode->appendChild($productName);
+
+            $qty = $dom->createElement('Quantity', $item['quantity']);
             $itemNode->appendChild($qty);
+
+            $pricePerItem = $dom->createElement('PricePerItem', $item['price']);
             $itemNode->appendChild($pricePerItem);
 
             $cartElement->appendChild($itemNode);
             $dom->appendChild($cartElement);
+
+            $i++;
         }
 
         $dom->formatOutput = true;

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="cs_cron_orderexport_after">
+    <event name="orderexport_export_after">
         <observer name="changeStatusAfterExport" instance="MageSuite\OrderExport\Observer\ChangeStatus" />
         <observer name="uploadOrderExport" instance="MageSuite\OrderExport\Observer\UploadOrderExport" />
     </event>
-    <event name="cs_cron_orderexport_validate">
+    <event name="orderexport_export_validate">
         <observer name="validateOrderExport" instance="MageSuite\OrderExport\Observer\ValidateOrderExport" />
     </event>
 </config>

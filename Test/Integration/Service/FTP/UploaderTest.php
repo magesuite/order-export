@@ -7,17 +7,17 @@ class UploaderTest extends \PHPUnit\Framework\TestCase
     /**
      * @var \Magento\TestFramework\ObjectManager
      */
-    private $objectManager;
+    protected $objectManager;
 
     /**
      * @var \MageSuite\OrderExport\Service\FTP\Uploader
      */
-    private $uploader;
+    protected $uploader;
 
     /**
      * @var \FtpClient\FtpClient|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $ftpClientDouble;
+    protected $ftpClientDouble;
 
     public function setUp()
     {
@@ -34,7 +34,9 @@ class UploaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @magentoConfigFixture current_store orderexport/automatic/ftp_upload 1
+     * @magentoDbIsolation enabled
+     * @magentoAppIsolation enabled
+     * @magentoConfigFixture current_store orderexport/automatic/is_ftp_upload_enabled 1
      * @magentoConfigFixture current_store orderexport/automatic/ftp_host ftp.example.com
      * @magentoConfigFixture current_store orderexport/automatic/ftp_passive 0
      * @magentoConfigFixture current_store orderexport/automatic/ftp_login user
@@ -54,7 +56,9 @@ class UploaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @magentoConfigFixture current_store orderexport/automatic/ftp_upload 0
+     * @magentoDbIsolation enabled
+     * @magentoAppIsolation enabled
+     * @magentoConfigFixture current_store orderexport/automatic/is_ftp_upload_enabled 0
      * @magentoConfigFixture current_store orderexport/automatic/ftp_host ftp.example.com
      * @magentoConfigFixture current_store orderexport/automatic/ftp_passive 1
      * @magentoConfigFixture current_store orderexport/automatic/ftp_login user

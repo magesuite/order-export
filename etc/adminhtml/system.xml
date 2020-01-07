@@ -39,7 +39,10 @@
                     <label>Export Date Format</label>
                     <comment>Please type format of the date which you want to be put into the export filename. Example 'Y-m-d'</comment>
                 </field>
-
+                <field id="upload_path" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Upload Path</label>
+                    <comment>Please provide path where order export files should be stored. Example 'orderexport/'</comment>
+                </field>
                 <field id="is_ftp_upload_enabled" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Upload to FTP</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

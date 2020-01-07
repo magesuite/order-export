@@ -1,8 +1,8 @@
 <?php
 
-namespace MageSuite\OrderExport\Test\Unit\Service\File;
+namespace MageSuite\OrderExport\Test\Unit\Service\Writer;
 
-class CSVWriterTest extends \PHPUnit\Framework\TestCase
+class CsvTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \MageSuite\OrderExport\Service\Writer\WriterInterface
@@ -21,14 +21,14 @@ class CSVWriterTest extends \PHPUnit\Framework\TestCase
             'name' => 'firstname lastname',
             'telephone' => '11111111',
             'email' => 'customer@null.com',
-            'company' => NULL,
+            'company' => null,
             'address' => 'street 1',
             'city' => 'city',
             'postcode' => '11111',
             'region' => 'CA',
             'country' => 'US',
             'shipping_name' => 'firstname lastname',
-            'shipping_company' => NULL,
+            'shipping_company' => null,
             'shipping_address' => 'street 1',
             'shipping_city' => 'city',
             'shipping_postcode' => '11111',
@@ -54,5 +54,4 @@ class CSVWriterTest extends \PHPUnit\Framework\TestCase
 
         unlink(__DIR__ . '/write_test');
     }
-
 }

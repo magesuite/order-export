@@ -3,22 +3,21 @@ namespace MageSuite\OrderExport\Service\Export\Exporter\Csv;
 
 class Grouped extends \MageSuite\OrderExport\Service\Export\Exporter
 {
-    public function export($orders, $filePath = '')
+    public function export($orders)
     {
         $writer = $this->writerFactory->create();
 
         $exportResult = ['success' => 0, 'successIds' => [], 'ordersData' => []];
 
-        $filename = $this->formatter->getFilename();
-
-        if ($filePath == '') {
-            $filePath = $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR) . '/orderexport/' . $filename;
-        }
+        $filename = $this->filename->getFilename();
+        $filePath = $this->getFilePath($filename);
 
         $writer->openFile($filePath);
         $writer->writeHeader();
 
         foreach ($orders as $order) {
+
+            $order = $this->convertOrder($order);
             $writer->write($order['order']);
             foreach ($order['items'] as $item) {
                 $writer->write($item);

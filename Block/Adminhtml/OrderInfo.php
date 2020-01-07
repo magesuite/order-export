@@ -24,7 +24,7 @@ class OrderInfo extends \Magento\Backend\Block\Template
     protected $directoryList;
 
     /**
-     * @var \MageSuite\OrderExport\Model\Collections\Export
+     * @var \MageSuite\OrderExport\Model\ResourceModel\Export\Collection
      */
     protected $exportLogCollection;
 
@@ -39,7 +39,7 @@ class OrderInfo extends \Magento\Backend\Block\Template
         \Magento\Backend\Model\UrlInterface $urlBuilder,
         \MageSuite\OrderExport\Api\ExportStatusRepositoryInterface $exportStatusRepository,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
-        \MageSuite\OrderExport\Model\Collections\Export $exportLogCollection,
+        \MageSuite\OrderExport\Model\ResourceModel\Export\Collection $exportLogCollection,
         \MageSuite\OrderExport\Model\Config\StatusesList $statusesList
     ) {
         parent::__construct($context);

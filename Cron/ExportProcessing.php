@@ -32,7 +32,7 @@ class ExportProcessing
             'type' => 'cron'
         ];
 
-        $export = $this->exportFactory->create($data);
+        $export = $this->exportFactory->create(['data' => $data]);
         $export->execute();
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace MageSuite\OrderExport\Test\Unit\Service\File;
+namespace MageSuite\OrderExport\Test\Unit\Service\Writer;
 
-class XMLWriterTest extends \PHPUnit\Framework\TestCase
+class XmlTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \MageSuite\OrderExport\Service\Writer\WriterInterface

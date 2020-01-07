@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="MageSuite_OrderExport::order_export" title="Order Export" translate="title"
-             module="MageSuite_OrderExport"
-             sortOrder="50" parent="Magento_Backend::system_convert" action="orderexport/export/generate"
-             resource="Magento_ImportExport::history"/>
+<!--        Disabled until orderexport refactor will be finished-->
+
+<!--        <add id="MageSuite_OrderExport::order_export" title="Order Export" translate="title"-->
+<!--             module="MageSuite_OrderExport"-->
+<!--             sortOrder="50" parent="Magento_Backend::system_convert" action="orderexport/export/generate"-->
+<!--             resource="Magento_ImportExport::history"/>-->
         <add id="MageSuite_OrderExport::order_export_log" title="Orders Export Log" translate="title"
              module="MageSuite_OrderExport"
              sortOrder="55" parent="Magento_Backend::system_convert" action="orderexport/export/index"

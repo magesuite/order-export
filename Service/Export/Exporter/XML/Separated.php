@@ -10,18 +10,18 @@ class Separated extends \MageSuite\OrderExport\Service\Export\Exporter
         $exportResult = ['success' => 0, 'successIds' => [], 'ordersData' => []];
         $orderUploadData = [];
         foreach ($orders as $order) {
+            $order = $this->convertOrder($order);
             $storeId = $order['order']['store_id'] ?? null;
-            $filename = $this->formatter->getFilename($order['increment_id'], null, $storeId);
-            if ($filePath == '') {
-                $filePath = $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR) . '/orderexport/' . $filename;
-            }
+            $filename = $this->filename->getFilename($order['order']['increment_id'], null, $storeId);
+            $filePath = $this->getFilePath($filename);
+
             $order['strategy'] = 'separated';
             $writer->openFile($filePath);
 
             $writer->write($order);
 
             $exportResult['success'] += 1;
-            $exportResult['successIds'][] = $order['increment_id'];
+            $exportResult['successIds'][] = $order['order']['increment_id'];
             $orderUploadData[] = [
                 'filename' => $filename,
                 'filepath' => $filePath
@@ -32,6 +32,7 @@ class Separated extends \MageSuite\OrderExport\Service\Export\Exporter
             $filePath = '';
         }
         $exportResult['ordersData'] = $orderUploadData;
+
         return $exportResult;
     }
 }

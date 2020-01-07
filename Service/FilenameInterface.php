@@ -1,7 +1,7 @@
 <?php
-namespace MageSuite\OrderExport\Service\Filename;
+namespace MageSuite\OrderExport\Service;
 
-interface FormatterInterface
+interface FilenameInterface
 {
     /**
      * @param string $incrementId

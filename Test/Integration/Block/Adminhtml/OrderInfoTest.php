@@ -134,7 +134,7 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
         include __DIR__ . '/../../../_files/export_status.php';
     }
 
-    private function getOrder()
+    protected function getOrder()
     {
         $orderCollection = $this->orderCollection;
 
@@ -143,7 +143,7 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
         return $orderCollection->getFirstItem();
     }
 
-    private function getMatchingStatuses()
+    protected function getMatchingStatuses()
     {
         return [
             'ready_to_generate',

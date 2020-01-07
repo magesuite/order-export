@@ -48,7 +48,7 @@ class ExportStatusRepositoryInterfaceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('{"ready_to_generate":{"status":"ready_to_generate","label":"Order ready to generate","completed":true}}', $exportStatusData->getStatusData());
     }
 
-    private function getStatusData()
+    protected function getStatusData()
     {
         return [
             'status' => 'ready_to_generate',

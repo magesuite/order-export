@@ -6,7 +6,6 @@ interface ExporterInterface
 {
     /**
      * @param array $orders
-     * @param string $filePath
      */
-    public function export($orders, $filePath = '');
+    public function export($orders);
 }

@@ -8,8 +8,13 @@
     <preference for="MageSuite\OrderExport\Api\Data\ExportStatusInterface" type="MageSuite\OrderExport\Model\Data\ExportStatus" />
     <preference for="MageSuite\OrderExport\Api\ExportStatusRepositoryInterface" type="MageSuite\OrderExport\Model\ExportStatusRepository" />
 
-    <preference for="MageSuite\OrderExport\Service\Filename\FormatterInterface" type="MageSuite\OrderExport\Service\Filename\Formatter" />
+    <preference for="MageSuite\OrderExport\Model\OrderRepositoryInterface" type="MageSuite\OrderExport\Model\OrderRepository" />
+    <preference for="MageSuite\OrderExport\Model\OrderFilterInterface" type="MageSuite\OrderExport\Model\OrderFilter" />
+
+    <preference for="MageSuite\OrderExport\Service\FilenameInterface" type="MageSuite\OrderExport\Service\Filename" />
     <preference for="MageSuite\OrderExport\Service\Converter\OrderInterface" type="MageSuite\OrderExport\Service\Converter\Order" />
+    <preference for="MageSuite\OrderExport\Service\Converter\OrderItemInterface" type="MageSuite\OrderExport\Service\Converter\OrderItem" />
+
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">

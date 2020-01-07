@@ -53,7 +53,7 @@ class GeneratePost extends \Magento\Backend\App\Action implements \Magento\Frame
 
         $now = (new \DateTime())->format('Y-m-d');
         $filename = sprintf(self::EXPORT_FILENAME_FORMAT, $status, $now, $this->configuration->getExportFileType());
-        $filePath = $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR) . '/orderexport/manual/' . $filename;
+        $filePath = sprintf('%s/manual/%s', $this->configuration->getUploadPath(), $filename);
 
         $filters = [
             ['field' => 'status', 'value' => $status, 'condition' => 'eq']
@@ -62,7 +62,7 @@ class GeneratePost extends \Magento\Backend\App\Action implements \Magento\Frame
         $orders = $this->orderRepository->getOrdersList($filters);
 
         $exporter = $this->exporterFactory->create();
-        $exporter->export($orders, $filePath);
+        $exporter->export($orders);
 
         $this->fileFactory->create(
             $filename,

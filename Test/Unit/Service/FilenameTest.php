@@ -1,13 +1,13 @@
 <?php
 
-namespace MageSuite\OrderExport\Test\Unit\Service\Export\Strategy\Filename;
+namespace MageSuite\OrderExport\Test\Unit\Service;
 
-class FormatterTest extends \PHPUnit\Framework\TestCase
+class FilenameTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \MageSuite\OrderExport\Service\Filename\Formatter
+     * @var \MageSuite\OrderExport\Service\Filename
      */
-    protected $formatter;
+    protected $filename;
 
     /**
      * @var \MageSuite\OrderExport\Helper\Configuration
@@ -19,7 +19,7 @@ class FormatterTest extends \PHPUnit\Framework\TestCase
     {
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
-        $this->formatter = $objectManager->create(\MageSuite\OrderExport\Service\Filename\Formatter::class);
+        $this->filename = $objectManager->create(\MageSuite\OrderExport\Service\Filename::class);
         $this->configuration = $objectManager->create(\MageSuite\OrderExport\Helper\Configuration::class);
     }
 
@@ -30,12 +30,12 @@ class FormatterTest extends \PHPUnit\Framework\TestCase
         $dateFormat = $this->configuration->getExportDateFormat();
         $exportType = $this->configuration->getExportFileType();
 
-        $filename = $this->formatter->getFilename('102933099', 'separated');
+        $filename = $this->filename->getFilename('102933099', 'separated');
 
         $expected = 'order_102933099_' . $date->format($dateFormat) . '.' . $exportType;
         $this->assertEquals($expected, $filename);
 
-        $filename = $this->formatter->getFilename('102933099', 'grouped');
+        $filename = $this->filename->getFilename('102933099', 'grouped');
 
         $expected = 'order_increment_id_' . $date->format($dateFormat) . '.' . $exportType;
         $this->assertEquals($expected, $filename);

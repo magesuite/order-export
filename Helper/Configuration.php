@@ -11,15 +11,22 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
      */
     protected $scopeConfig;
 
+    /**
+     * @var \Magento\Framework\App\Filesystem\DirectoryList
+     */
+    protected $directoryList;
+
     protected $exportAutomaticConfig = null;
 
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface,
+        \Magento\Framework\App\Filesystem\DirectoryList $directoryList
     ) {
         parent::__construct($context);
 
         $this->scopeConfig = $scopeConfigInterface;
+        $this->directoryList = $directoryList;
     }
 
     public function isAutomaticExportEnabled()
@@ -27,7 +34,7 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         return (bool)$this->getExportAutomaticConfig()->getIsEnabled();
     }
 
-    public function changeStatusAfterExport()
+    public function shouldChangeStatusAfterExport()
     {
         return (bool)$this->getExportAutomaticConfig()->getChangeStatusAfterExport();
     }
@@ -62,9 +69,16 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->getExportAutomaticConfig()->getExportDateFormat();
     }
 
+    public function getUploadPath()
+    {
+        $uploadPath = $this->getExportAutomaticConfig()->getUploadPath();
+
+        return rtrim(sprintf('%s/%s', $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR), $uploadPath), '/');
+    }
+
     public function isFtpUploadEnabled()
     {
-        return $this->getExportAutomaticConfig()->getIsFtpUploadEnabled();
+        return (bool)$this->getExportAutomaticConfig()->getIsFtpUploadEnabled();
     }
 
     public function getFtpConfig()

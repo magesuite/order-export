@@ -1,18 +1,18 @@
 <?php
 
-namespace MageSuite\OrderExport\Test\Integration\Service\Export\File;
+namespace MageSuite\OrderExport\Test\Integration\Service\Export\Writer;
 
 class WriterFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\TestFramework\ObjectManager
      */
-    private $objectManager;
+    protected $objectManager;
 
     /**
      * @var \MageSuite\OrderExport\Service\Writer\WriterFactory|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $factory;
+    protected $factory;
 
     public function setUp()
     {
@@ -26,17 +26,15 @@ class WriterFactoryTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(\MageSuite\OrderExport\Service\Writer\WriterFactory::class, $this->factory);
     }
 
+    /**
+     * @magentoDbIsolation enabled
+     * @magentoAppIsolation enabled
+     * @magentoConfigFixture current_store orderexport/automatic/export_file_type non_existing
+     */
     public function testItReturnsNullWhenWriterDoesNotExists()
     {
-        $createdWriters = $this->factory->create('not_existing_writer');
+        $createdWriters = $this->factory->create();
 
         $this->assertNull($createdWriters);
-    }
-
-    public function getWriters()
-    {
-        return [
-            ['csv', \MageSuite\OrderExport\Service\File\Adapter\CSVWriter::class],
-        ];
     }
 }

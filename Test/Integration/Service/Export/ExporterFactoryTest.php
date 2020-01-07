@@ -7,42 +7,34 @@ class ExporterFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @var \Magento\TestFramework\ObjectManager
      */
-    private $objectManager;
+    protected $objectManager;
 
     /**
      * @var \MageSuite\OrderExport\Service\Export\ExporterFactory|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $factory;
+    protected $factory;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
 
         $this->factory = $this->objectManager->get(\MageSuite\OrderExport\Service\Export\ExporterFactory::class);
     }
 
-    public function testItImplementsExporterFactoryInterface() {
+    public function testItImplementsExporterFactoryInterface()
+    {
         $this->assertInstanceOf(\MageSuite\OrderExport\Service\Export\ExporterFactory::class, $this->factory);
     }
 
-    public function testItReturnsNullWhenExporterDoesNotExists() {
-        $createdExporter = $this->factory->create('not_existing_exporter');
+    /**
+     * @magentoDbIsolation enabled
+     * @magentoAppIsolation enabled
+     * @magentoConfigFixture current_store orderexport/automatic/export_file_type non_existing
+     */
+    public function testItReturnsNullWhenExporterDoesNotExists()
+    {
+        $createdExporter = $this->factory->create();
 
         $this->assertNull($createdExporter);
-    }
-    /**
-     * @dataProvider getExporter
-     */
-    public function testItReturnsExportersProperly($exporterType, $expectedClass) {
-
-        $createdExporter = $this->factory->create($exporterType);
-
-        $this->assertInstanceOf($expectedClass, $createdExporter);
-    }
-
-    public function getExporter() {
-        return [
-            ['csv', \MageSuite\OrderExport\Service\Export\Exporter\CSV::class],
-            ['xml', \MageSuite\OrderExport\Service\Export\Exporter\XML::class],
-        ];
     }
 }

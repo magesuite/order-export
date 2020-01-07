@@ -3,15 +3,14 @@ namespace MageSuite\OrderExport\Service\Export\Exporter\Xml;
 
 class Grouped extends \MageSuite\OrderExport\Service\Export\Exporter
 {
-    public function export($orders, $filePath = '')
+    public function export($orders)
     {
         $writer = $this->writerFactory->create();
 
         $exportResult = ['success' => 0, 'successIds' => [], 'ordersData' => []];
-        $filename = $this->formatter->getFilename();
-        if ($filePath == '') {
-            $filePath = $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR) . '/orderexport/' . $filename;
-        }
+        $filename = $this->filename->getFilename();
+        $filePath = $this->getFilePath($filename);
+
         $writer->openFile($filePath);
         $orders['strategy'] = 'grouped';
         $writer->write($orders);

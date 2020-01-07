@@ -63,22 +63,12 @@ class Export extends \Symfony\Component\Console\Command\Command
         $data = [
             'type' => 'manual',
             'status' => $input->getArgument('status'),
+            'new_status' => $input->getArgument('new_status'),
             'date_from' => $input->getOption('date_from'),
             'date_to' => $input->getOption('date_to')
         ];
 
-        /** @var \MageSuite\OrderExport\Service\Export $export */
         $export = $this->exportFactory->create(['data' => $data]);
-
-        $result = $export->execute();
-
-        $newStatus = $input->getArgument('new_status');
-
-        if (!empty($newStatus)) {
-            foreach ($result['ordersData'] as $order) {
-                $order->addStatusToHistory($newStatus, 'Order has been exported manually');
-                $order->save();
-            }
-        }
+        $export->execute();
     }
 }

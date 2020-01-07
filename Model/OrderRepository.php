@@ -2,7 +2,7 @@
 
 namespace MageSuite\OrderExport\Model;
 
-class OrderRepository
+class OrderRepository implements \MageSuite\OrderExport\Model\OrderRepositoryInterface
 {
     /**
      * @var \Magento\Sales\Model\OrderRepository

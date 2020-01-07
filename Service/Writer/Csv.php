@@ -4,9 +4,6 @@ namespace MageSuite\OrderExport\Service\Writer;
 
 class Csv implements \MageSuite\OrderExport\Service\Writer\WriterInterface
 {
-    /**
-     * @var array
-     */
     protected $columns = [
         'increment_id',
         'name',
@@ -36,13 +33,10 @@ class Csv implements \MageSuite\OrderExport\Service\Writer\WriterInterface
 
     protected $fileHandler;
 
-    /**
-     * @param string $filePath
-     */
     public function openFile($filePath)
     {
         $this->checkPath($filePath);
-        $this->fileHandler = fopen($filePath, "w");
+        $this->fileHandler = fopen($filePath, 'w');
     }
 
     public function closeFile()
@@ -69,10 +63,7 @@ class Csv implements \MageSuite\OrderExport\Service\Writer\WriterInterface
         fputcsv($this->fileHandler, $this->columns, ';', '"');
     }
 
-    /**
-     * @param string $filePath
-     */
-    private function checkPath($filePath)
+    protected function checkPath($filePath)
     {
         $dir = dirname($filePath);
         if (!is_dir($dir)) {

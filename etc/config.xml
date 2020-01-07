@@ -6,7 +6,7 @@
                 <active>0</active>
                 <change_status_after_export>0</change_status_after_export>
                 <new_status>processing</new_status>
-                <ftp_upload>0</ftp_upload>
+                <is_ftp_upload_enabled>0</is_ftp_upload_enabled>
                 <ftp_passive>0</ftp_passive>
                 <ftp_ssl>1</ftp_ssl>
                 <cron_schedule>0 18 * * *</cron_schedule>
@@ -15,6 +15,7 @@
                 <export_filename>order_%increment_id%_%export_date%</export_filename>
                 <export_file_type>csv</export_file_type>
                 <export_date_format>Y-m-d</export_date_format>
+                <upload_path>orderexport</upload_path>
             </automatic>
         </orderexport>
     </default>

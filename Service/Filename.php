@@ -1,8 +1,8 @@
 <?php
 
-namespace MageSuite\OrderExport\Service\Filename;
+namespace MageSuite\OrderExport\Service;
 
-class Formatter implements \MageSuite\OrderExport\Service\Filename\FormatterInterface
+class Filename implements \MageSuite\OrderExport\Service\FilenameInterface
 {
     /**
      * @var \MageSuite\OrderExport\Helper\Configuration
@@ -58,6 +58,6 @@ class Formatter implements \MageSuite\OrderExport\Service\Filename\FormatterInte
 
     protected function addFileExtension($fileName)
     {
-        return sprintf('%s.%s', $fileName, $this->configuration->getExportStrategy());
+        return sprintf('%s.%s', $fileName, $this->configuration->getExportFileType());
     }
 }

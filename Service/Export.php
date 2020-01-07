@@ -10,6 +10,11 @@ class Export extends \Magento\Framework\DataObject
     protected $exportRepository;
 
     /**
+     * @var \MageSuite\OrderExport\Model\OrderFilterInterface
+     */
+    protected $orderFilter;
+
+    /**
      * @var \MageSuite\OrderExport\Model\OrderRepository
      */
     protected $orderRepository;
@@ -32,6 +37,7 @@ class Export extends \Magento\Framework\DataObject
     public function __construct(
         \MageSuite\OrderExport\Api\ExportRepositoryInterface $exportRepository,
         \MageSuite\OrderExport\Model\OrderRepository $orderRepository,
+        \MageSuite\OrderExport\Model\OrderFilterInterface $orderFilter,
         \MageSuite\OrderExport\Service\Export\ExporterFactory $exporterFactory,
         \MageSuite\OrderExport\Helper\Configuration $configuration,
         \Magento\Framework\Event\Manager $eventManager,
@@ -41,6 +47,7 @@ class Export extends \Magento\Framework\DataObject
 
         $this->exportRepository = $exportRepository;
         $this->orderRepository = $orderRepository;
+        $this->orderFilter = $orderFilter;
         $this->exporterFactory = $exporterFactory;
         $this->configuration = $configuration;
         $this->eventManager = $eventManager;
@@ -50,7 +57,7 @@ class Export extends \Magento\Framework\DataObject
     {
         $exportModel = $this->exportRepository->create();
 
-        $filters = $this->prepareOrderFilters();
+        $filters = $this->orderFilter->getFilters($this->getData());
         $orders = $this->orderRepository->getOrdersList($filters);
 
         if ($orderCount = count($orders)) {
@@ -81,51 +88,11 @@ class Export extends \Magento\Framework\DataObject
         $this->exportRepository->save($exportModel);
 
         foreach ($result['ordersData'] as $order) {
-            $this->eventManager->dispatch('cs_cron_orderexport_after', ['orders' => $orders, 'filePath' => $order['filepath']]);
+            $this->eventManager->dispatch('orderexport_export_after', ['orders' => $orders, 'filePath' => $order['filepath'], 'type' => $this->getType(), 'new_status' => $this->getNewStatus()]);
         }
 
-        $this->eventManager->dispatch('cs_cron_orderexport_validate', ['result' => $result, 'export' => $exportModel]);
+        $this->eventManager->dispatch('orderexport_export_validate', ['result' => $result, 'export' => $exportModel]);
 
         return $result;
-    }
-
-    protected function prepareOrderFilters()
-    {
-        $filters = [];
-
-        if (!($this->getStatus())) {
-            $filters[] = ['field' => 'status', 'value' => $this->getStatus(), 'condition' => 'eq'];
-        }
-
-        $now = new \DateTime();
-        $shouldExportOrdersDaily = $this->configuration->shouldExportOrdersDaily();
-
-        if ($this->getDateFrom()) {
-            $dateFrom = new \DateTime($this->getDateFrom());
-            $from = $dateFrom->format('Y-m-d 00:00:00');
-        } elseif ($shouldExportOrdersDaily) {
-            $from = $now->format('Y-m-d 00:00:00');
-        } else {
-            $from = null;
-        }
-
-        if ($from) {
-            $filters[] = ['field' => 'created_at', 'value' => $from, 'condition' => 'gteq'];
-        }
-
-        if ($this->getDateTo()) {
-            $dateTo = new \DateTime($this->getDateTo());
-            $to = $dateTo->format('Y-m-d 23:59:59');
-        } elseif ($shouldExportOrdersDaily) {
-            $to = $now->format('Y-m-d 23:59:59');
-        } else {
-            $to = null;
-        }
-
-        if ($to) {
-            $filters[] = ['field' => 'created_at', 'value' => $to, 'condition' => 'lteq'];
-        }
-
-        return $filters;
     }
 }

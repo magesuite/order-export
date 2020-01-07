@@ -4,99 +4,50 @@ namespace MageSuite\OrderExport\Service\Converter;
 
 class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
 {
-
-
-
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var \Magento\Shipping\Model\Config\Source\Allmethods
      */
-    protected $storeManager;
+    protected $shippingMethods;
 
     /**
-     * @var \Magento\Framework\App\ResourceConnection
-     */
-    protected $resource;
-
-    /**
-     * @var \Creativestyle\CustomizationKruegerOrderExport\Service\Export\Converter\OrderItem
+     * @var \MageSuite\OrderExport\Service\Converter\OrderItemInterface
      */
     protected $orderItemConverter;
 
-    protected $erpMerchantIdMap = [
-        'default' => self::B2C_MERCHANT_ID,
-        self::B2B_WEBSITE_CODE => self::B2B_MERCHANT_ID
-    ];
-
     public function __construct(
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\App\ResourceConnection $resource,
-        \Creativestyle\CustomizationKruegerOrderExport\Service\Export\Converter\OrderItem $orderItemConverter,
-        \Magento\Shipping\Model\Config\Source\Allmethods $allmethods
+        \Magento\Shipping\Model\Config\Source\Allmethods $shippingMethods,
+        \MageSuite\OrderExport\Service\Converter\OrderItemInterface $orderItemConverter
     ) {
-        parent::__construct($allmethods);
-
-        $this->storeManager = $storeManager;
-        $this->resource = $resource;
+        $this->shippingMethods = $shippingMethods;
         $this->orderItemConverter = $orderItemConverter;
     }
 
-    protected function getShipmentMethodTitle(\Magento\Sales\Model\Order $order)
-    {
-        $shippingMethod = $order->getShippingMethod();
-        if (empty($shippingMethod)) {
-            return '';
-        }
-
-        $allMethods = $this->allmethods->toOptionArray(true);
-        list($carrierCode, $carrierMethod) = explode('_', $shippingMethod, 2);
-        if (array_key_exists($carrierMethod, $allMethods)) {
-            return $allMethods[$carrierMethod]['label'];
-        }
-
-        if (!array_key_exists($carrierCode, $allMethods)) {
-            return '';
-        }
-        foreach ($allMethods[$carrierCode]['value'] as $method) {
-            if ($method['value'] != $shippingMethod) {
-                continue;
-            }
-
-            return $this->removeCarrierCodeFromShippingTitle($method['label']);
-        }
-
-        return '';
-    }
-
-
     public function convert(\Magento\Sales\Model\Order $order): array
     {
-        $orderData = $order->toArray();
-
-        return $orderData;
-        /*
+        $result = [
+            'order' => $order->toArray(),
+            'items' => []
+        ];
 
         foreach ($order->getAllItems() as $item) {
             if ($item->getProductType() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
                 continue;
             }
 
-            $itemData = $this->orderItemConverter->toArray($item, $erpMerchantId);
-            $itemData['increment_id'] = $incrementId;
-            $itemsData[] = $itemData;
+            $result['items'][] = $this->orderItemConverter->convert($item);
         }
 
-        $incrementId = $order->getIncrementId();
+        $this->addAdditionalFieldsToOrder($result['order'], $order);
+
+        return $result;
+    }
+
+    public function addAdditionalFieldsToOrder(&$resultOrder, $order)
+    {
         $billingAddress = $order->getBillingAddress();
         $shippingAddress = $order->getShippingAddress();
 
-        $storeId = $order->getStore()->getId();
-
-        $storeCode = $this->getStoreCode($storeId);
-        $erpMerchantId = $this->getErpMerchantId($storeId);
-        $txId = $this->getTxId($order);
-
-        $orderData = [
-            'increment_id' => $incrementId,
+        $additionalFields = [
             'prefix' => $billingAddress->getPrefix(),
             'name' => $billingAddress->getFirstname() . ' ' . $billingAddress->getLastname(),
             'first_name' => $billingAddress->getFirstname(),
@@ -121,34 +72,44 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
             'shipping_country' => $shippingAddress->getCountryId(),
             'shipping_amount' => number_format($order->getBaseShippingInclTax(), 2),
             'shipping_method' => $this->getShipmentMethodTitle($order),
-            'payment_method' => $order->getPayment()->getMethod(),
-            'creation_date' => $order->getCreatedAt(),
-            'store_id' => $storeId,
-            'customer_id' => ($order->getCustomerId()) ? $order->getCustomerId() : 0,
-            'txid' => $txId,
-            'discount_amount' => $order->getDiscountAmount(),
-            'erp_merchant_id' => $erpMerchantId,
-            'store_code' => $storeCode
+            'payment_method' => $order->getPayment()->getMethod()
         ];
 
-        $itemsData = [];
+        $resultOrder = array_merge($resultOrder, $additionalFields);
+    }
 
-        foreach ($order->getAllItems() as $item) {
-            if ($item->getProductType() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
+    protected function getShipmentMethodTitle(\Magento\Sales\Model\Order $order)
+    {
+        $shippingMethod = $order->getShippingMethod();
+        if (empty($shippingMethod)) {
+            return '';
+        }
+
+        $shippingMethods = $this->shippingMethods->toOptionArray();
+        list($carrierCode, $carrierMethod) = explode('_', $shippingMethod, 2);
+        if (array_key_exists($carrierMethod, $shippingMethods)) {
+            return $shippingMethods[$carrierMethod]['label'];
+        }
+
+        if (!array_key_exists($carrierCode, $shippingMethods)) {
+            return '';
+        }
+
+        foreach ($shippingMethods[$carrierCode]['value'] as $method) {
+            if ($method['value'] != $shippingMethod) {
                 continue;
             }
 
-            $itemData = $this->orderItemConverter->toArray($item, $erpMerchantId);
-            $itemData['increment_id'] = $incrementId;
-            $itemsData[] = $itemData;
+            return $this->removeCarrierCodeFromShippingTitle($method['label']);
         }
 
-        $orderData['tax_per_cart'] = $this->getTaxPerCart($itemsData);
-
-        $result = ['increment_id' => $incrementId, 'order' => $orderData, 'items' => $itemsData];
-
-        return $result;
-
-        */
+        return '';
     }
+
+    protected function removeCarrierCodeFromShippingTitle($shippingMethodTitle)
+    {
+        return substr(strstr($shippingMethodTitle, ' '), 1);
+    }
+
+
 }
