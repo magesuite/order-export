@@ -29,7 +29,7 @@ class ExportProcessing
         }
 
         $data = [
-            'type' => 'cron'
+            'type' => \MageSuite\OrderExport\Helper\Configuration::CRON_EXPORT_TYPE
         ];
 
         $export = $this->exportFactory->create(['data' => $data]);

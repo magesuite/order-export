@@ -61,7 +61,7 @@ class Export extends \Symfony\Component\Console\Command\Command
         $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
 
         $data = [
-            'type' => 'manual',
+            'type' => \MageSuite\OrderExport\Helper\Configuration::MANUAL_EXPORT_TYPE,
             'status' => $input->getArgument('status'),
             'new_status' => $input->getArgument('new_status'),
             'date_from' => $input->getOption('date_from'),

@@ -34,13 +34,19 @@ class ExportRepository implements \MageSuite\OrderExport\Api\ExportRepositoryInt
      */
     protected $exportSearchResultFactory;
 
+    /**
+     * @var \MageSuite\OrderExport\Helper\Configuration
+     */
+    protected $configuration;
+
     public function __construct(
         \MageSuite\OrderExport\Model\ResourceModel\Export $exportResource,
         \MageSuite\OrderExport\Api\Data\ExportInterfaceFactory $exportFactory,
         \MageSuite\OrderExport\Model\ResourceModel\Export\CollectionFactory $collectionFactory,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
-        \MageSuite\OrderExport\Api\Data\ExportSearchResultInterfaceFactory $exportSearchResultFactory
+        \MageSuite\OrderExport\Api\Data\ExportSearchResultInterfaceFactory $exportSearchResultFactory,
+        \MageSuite\OrderExport\Helper\Configuration $configuration
     ) {
         $this->exportResource = $exportResource;
         $this->exportFactory = $exportFactory;
@@ -48,6 +54,7 @@ class ExportRepository implements \MageSuite\OrderExport\Api\ExportRepositoryInt
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->collectionProcessor = $collectionProcessor;
         $this->exportSearchResultFactory = $exportSearchResultFactory;
+        $this->configuration = $configuration;
     }
 
     public function create()
@@ -72,6 +79,10 @@ class ExportRepository implements \MageSuite\OrderExport\Api\ExportRepositoryInt
 
     public function save(\MageSuite\OrderExport\Api\Data\ExportInterface $export)
     {
+        if (!$export->getSuccess() && !$this->configuration->logAllExports()) {
+            return $export;
+        }
+
         return $this->exportResource->save($export);
     }
 

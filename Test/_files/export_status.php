@@ -50,7 +50,7 @@ $exportModel = $objectManager->create(\MageSuite\OrderExport\Api\Data\ExportInte
 $result = ['success' => 1, 'successIds' => ['100000001']];
 
 $exportModel
-    ->setType('manual')
+    ->setType(\MageSuite\OrderExport\Helper\Configuration::MANUAL_EXPORT_TYPE)
     ->setExportedFilename('export.csv')
     ->setSearchOrderStatus(null)
     ->setSuccess($result['success'])

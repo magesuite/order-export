@@ -6,6 +6,9 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const XML_PATH_ORDER_EXPORT_AUTOMATIC_CONFIG = 'orderexport/automatic';
 
+    const CRON_EXPORT_TYPE = 'cron';
+    const MANUAL_EXPORT_TYPE = 'manual';
+
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
@@ -32,6 +35,11 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
     public function isAutomaticExportEnabled()
     {
         return (bool)$this->getExportAutomaticConfig()->getIsEnabled();
+    }
+
+    public function logAllExports()
+    {
+        return (bool)$this->getExportAutomaticConfig()->getLogAllExports();
     }
 
     public function shouldChangeStatusAfterExport()

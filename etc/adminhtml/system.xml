@@ -18,6 +18,11 @@
                     <label>Cron Schedule</label>
                     <comment>Please type full cron schedule expression, eg. '59 23 * * *'</comment>
                 </field>
+                <field id="log_all_exports" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Log all exports</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If it is set to 'Yes', or exports will be logged, including those that do not export any order</comment>
+                </field>
                 <field id="change_status_after_export" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Change status after export</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
