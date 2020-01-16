@@ -45,7 +45,7 @@ class ChangeStatus implements \Magento\Framework\Event\ObserverInterface
             return true;
         }
 
-        if ($this->configuration->changeStatusAfterExport()) {
+        if ($this->configuration->shouldChangeStatusAfterExport()) {
             return true;
         }
 

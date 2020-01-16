@@ -1,11 +1,11 @@
 <?php
 namespace MageSuite\OrderExport\Model\Data;
 
-class Export extends \Magento\Framework\Model\AbstractModel implements \MageSuite\OrderExport\Api\Data\ExportInterface
+class ExportLog extends \Magento\Framework\Model\AbstractModel implements \MageSuite\OrderExport\Api\Data\ExportLogInterface
 {
     protected function _construct()
     {
-        $this->_init(\MageSuite\OrderExport\Model\ResourceModel\Export::class);
+        $this->_init(\MageSuite\OrderExport\Model\ResourceModel\ExportLog::class);
     }
 
     public function setExportId($exportId)

@@ -5,9 +5,9 @@ namespace MageSuite\OrderExport\Service;
 class Export extends \Magento\Framework\DataObject
 {
     /**
-     * @var \MageSuite\OrderExport\Api\ExportRepositoryInterface
+     * @var \MageSuite\OrderExport\Api\ExportLogRepositoryInterface
      */
-    protected $exportRepository;
+    protected $exportLogRepository;
 
     /**
      * @var \MageSuite\OrderExport\Model\OrderFilterInterface
@@ -35,7 +35,7 @@ class Export extends \Magento\Framework\DataObject
     protected $eventManager;
 
     public function __construct(
-        \MageSuite\OrderExport\Api\ExportRepositoryInterface $exportRepository,
+        \MageSuite\OrderExport\Api\ExportLogRepositoryInterface $exportLogRepository,
         \MageSuite\OrderExport\Model\OrderRepository $orderRepository,
         \MageSuite\OrderExport\Model\OrderFilterInterface $orderFilter,
         \MageSuite\OrderExport\Service\Export\ExporterFactory $exporterFactory,
@@ -45,7 +45,7 @@ class Export extends \Magento\Framework\DataObject
     ) {
         parent::__construct($data);
 
-        $this->exportRepository = $exportRepository;
+        $this->exportLogRepository = $exportLogRepository;
         $this->orderRepository = $orderRepository;
         $this->orderFilter = $orderFilter;
         $this->exporterFactory = $exporterFactory;
@@ -55,7 +55,7 @@ class Export extends \Magento\Framework\DataObject
 
     public function execute()
     {
-        $exportModel = $this->exportRepository->create();
+        $exportLog = $this->exportLogRepository->create();
 
         $filters = $this->orderFilter->getFilters($this->getData());
         $orders = $this->orderRepository->getOrdersList($filters);
@@ -77,7 +77,7 @@ class Export extends \Magento\Framework\DataObject
             $result = ['success' => 0, 'successIds' => [], 'ordersData' => []];
         }
 
-        $exportModel
+        $exportLog
             ->setType($this->getType())
             ->setExportedFilename($filename)
             ->setSearchOrderStatus($this->getStatus())
@@ -85,7 +85,7 @@ class Export extends \Magento\Framework\DataObject
             ->setSuccessIds(implode(', ', $result['successIds']))
             ->setFinishedAt(new \DateTime());
 
-        $this->exportRepository->save($exportModel);
+        $this->exportLogRepository->save($exportLog);
 
         foreach ($result['ordersData'] as $order) {
             $this->eventManager->dispatch('orderexport_export_after', ['orders' => $orders, 'filePath' => $order['filepath'], 'type' => $this->getType(), 'new_status' => $this->getNewStatus()]);

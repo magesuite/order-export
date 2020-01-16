@@ -1,12 +1,12 @@
 <?php
 namespace MageSuite\OrderExport\Ui\DataProvider;
 
-class LogDataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider
+class ExportLogDataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider
 {
     /**
-     * @var \MageSuite\OrderExport\Api\ExportRepositoryInterface
+     * @var \MageSuite\OrderExport\Api\ExportLogRepositoryInterface
      */
-    protected $exportRepository;
+    protected $exportLogRepository;
 
     /**
      * @var \Magento\Ui\DataProvider\SearchResultFactory
@@ -21,21 +21,21 @@ class LogDataProvider extends \Magento\Framework\View\Element\UiComponent\DataPr
         \Magento\Framework\Api\Search\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Framework\Api\FilterBuilder $filterBuilder,
-        \MageSuite\OrderExport\Api\ExportRepositoryInterface $exportRepository,
+        \MageSuite\OrderExport\Api\ExportLogRepositoryInterface $exportLogRepository,
         \Magento\Ui\DataProvider\SearchResultFactory $searchResultFactory,
         array $meta = [],
         array $data = []
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $reporting, $searchCriteriaBuilder, $request, $filterBuilder, $meta, $data);
 
-        $this->exportRepository = $exportRepository;
+        $this->exportLogRepository = $exportLogRepository;
         $this->searchResultFactory = $searchResultFactory;
     }
 
     public function getSearchResult()
     {
         $searchCriteria = $this->getSearchCriteria();
-        $result = $this->exportRepository->getList($searchCriteria);
+        $result = $this->exportLogRepository->getList($searchCriteria);
 
         return $this->searchResultFactory->create(
             $result->getItems(),

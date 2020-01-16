@@ -24,7 +24,7 @@ class OrderInfo extends \Magento\Backend\Block\Template
     protected $directoryList;
 
     /**
-     * @var \MageSuite\OrderExport\Model\ResourceModel\Export\Collection
+     * @var \MageSuite\OrderExport\Model\ResourceModel\ExportLog\Collection
      */
     protected $exportLogCollection;
 
@@ -39,7 +39,7 @@ class OrderInfo extends \Magento\Backend\Block\Template
         \Magento\Backend\Model\UrlInterface $urlBuilder,
         \MageSuite\OrderExport\Api\ExportStatusRepositoryInterface $exportStatusRepository,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
-        \MageSuite\OrderExport\Model\ResourceModel\Export\Collection $exportLogCollection,
+        \MageSuite\OrderExport\Model\ResourceModel\ExportLog\Collection $exportLogCollection,
         \MageSuite\OrderExport\Model\Config\StatusesList $statusesList
     ) {
         parent::__construct($context);
@@ -178,7 +178,7 @@ class OrderInfo extends \Magento\Backend\Block\Template
 
         $log = $logsCollection->getFirstItem();
 
-        return $this->urlBuilder->getUrl('orderexport/export/show', ['id' => $log->getExportId()]);
+        return $this->urlBuilder->getUrl('orderexport/exportlog/show', ['id' => $log->getExportId()]);
     }
 
     public function isAllowed()

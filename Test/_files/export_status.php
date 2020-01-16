@@ -7,7 +7,6 @@ $exportStatusData = $objectManager->create(\MageSuite\OrderExport\Api\ExportStat
 
 /** @var \Magento\Sales\Model\ResourceModel\Order\Collection $orderCollection */
 $orderCollection = $objectManager->create(\Magento\Sales\Model\ResourceModel\Order\Collection::class);
-;
 
 $orderCollection->addFieldToFilter('increment_id', ['eq' => '100000001']);
 
@@ -44,12 +43,12 @@ foreach ($statuses as $status) {
     $exportStatusData->addStatus($order, $status);
 }
 
-/** @var \MageSuite\OrderExport\Api\Data\ExportInterface $exportModel */
-$exportModel = $objectManager->create(\MageSuite\OrderExport\Api\Data\ExportInterface::class);
+/** @var \MageSuite\OrderExport\Api\Data\ExportLogInterface $exportLog */
+$exportLog = $objectManager->create(\MageSuite\OrderExport\Api\Data\ExportLogInterface::class);
 
 $result = ['success' => 1, 'successIds' => ['100000001']];
 
-$exportModel
+$exportLog
     ->setType(\MageSuite\OrderExport\Helper\Configuration::MANUAL_EXPORT_TYPE)
     ->setExportedFilename('export.csv')
     ->setSearchOrderStatus(null)
@@ -57,7 +56,7 @@ $exportModel
     ->setSuccessIds(implode(', ', $result['successIds']))
     ->setFinishedAt(new \DateTime());
 
-/** @var \MageSuite\OrderExport\Model\ResourceModel\Export $exportResourceModel */
-$exportResourceModel = $objectManager->create(\MageSuite\OrderExport\Model\ResourceModel\Export::class);
+/** @var \MageSuite\OrderExport\Model\ResourceModel\ExportLog $exportLogResource */
+$exportLogResource = $objectManager->create(\MageSuite\OrderExport\Model\ResourceModel\ExportLog::class);
 
-$exportResourceModel->save($exportModel);
+$exportLogResource->save($exportLog);

@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <block class="MageSuite\OrderExport\Block\Adminhtml\Export\Show" name="export.log.show" template="show_export.phtml"/>
+            <block class="MageSuite\OrderExport\Block\Adminhtml\ExportLog\Show" name="export.log.show" template="show_exportlog.phtml"/>
         </referenceContainer>
     </body>
 </page>

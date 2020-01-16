@@ -1,25 +1,25 @@
 <?php
 namespace MageSuite\OrderExport\Api;
 
-interface ExportRepositoryInterface
+interface ExportLogRepositoryInterface
 {
     /**
-     * @return \MageSuite\OrderExport\Api\Data\ExportInterface
+     * @return \MageSuite\OrderExport\Api\Data\ExportLogInterface
      */
     public function create();
 
     /**
      * @param int $id
-     * @return \MageSuite\OrderExport\Api\Data\ExportInterface
+     * @return \MageSuite\OrderExport\Api\Data\ExportLogInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getById($id);
 
     /**
-     * @param \MageSuite\OrderExport\Api\Data\ExportInterface $export
-     * @return \MageSuite\OrderExport\Api\Data\ExportInterface
+     * @param \MageSuite\OrderExport\Api\Data\ExportLogInterface $export
+     * @return \MageSuite\OrderExport\Api\Data\ExportLogInterface
      */
-    public function save(\MageSuite\OrderExport\Api\Data\ExportInterface $export);
+    public function save(\MageSuite\OrderExport\Api\Data\ExportLogInterface $export);
 
     /**
      * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria

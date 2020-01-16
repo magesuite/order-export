@@ -1,6 +1,6 @@
 <?php
-/** @var \MageSuite\OrderExport\Api\Data\ExportInterface $export */
-$export = $block->getExport();
+/** @var \MageSuite\OrderExport\Api\Data\ExportLogInterface $exportLog */
+$exportLog = $block->getExportLog();
 ?>
 
 <div class="page-main-actions">
@@ -19,38 +19,38 @@ $export = $block->getExport();
 <table class="admin__table-secondary">
     <tr>
         <th><?=__('Id')?></th>
-        <td><?= $export->getExportId() ?></td>
+        <td><?= $exportLog->getExportId() ?></td>
     </tr>
     <tr>
         <th><?=__('Type')?></th>
-        <td><?= $export->getType() ?></td>
+        <td><?= $exportLog->getType() ?></td>
     </tr>
     <tr>
         <th><?=__('Searched order status')?></th>
-        <td><?= $export->getSearchOrderStatus() ?></td>
+        <td><?= $exportLog->getSearchOrderStatus() ?></td>
     </tr>
     <tr>
         <th><?=__('Exported filename')?></th>
-        <td><?= $export->getExportedFilename() ?></td>
+        <td><?= $exportLog->getExportedFilename() ?></td>
     </tr>
     <tr>
         <th><?=__('Started at')?></th>
-        <td><?= $export->getStartedAt() ?></td>
+        <td><?= $exportLog->getStartedAt() ?></td>
     </tr>
     <tr>
         <th><?=__('Finished at')?></th>
-        <td><?= $export->getFinishedAt() ?></td>
+        <td><?= $exportLog->getFinishedAt() ?></td>
     </tr>
     <tr>
         <th><?=__('Exported orders amount')?></th>
-        <td><?= $export->getSuccess() ?></td>
+        <td><?= $exportLog->getSuccess() ?></td>
     </tr>
     <tr>
         <th><?=__('Exported IDs')?></th>
-        <td><?= $export->getSuccessIds() ?></td>
+        <td><?= $exportLog->getSuccessIds() ?></td>
     </tr>
     <tr>
         <th><?=__('Uploaded Files Status')?></th>
-        <td><?= nl2br($export->getUploadedFilesStatus()) ?></td>
+        <td><?= nl2br($exportLog->getUploadedFilesStatus()) ?></td>
     </tr>
 </table>

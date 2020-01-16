@@ -1,6 +1,6 @@
 <?php
 
-namespace MageSuite\OrderExport\Block\Adminhtml\Export;
+namespace MageSuite\OrderExport\Block\Adminhtml\ExportLog;
 
 class Show extends \Magento\Backend\Block\Template
 {
@@ -18,8 +18,8 @@ class Show extends \Magento\Backend\Block\Template
         $this->registry = $registry;
     }
 
-    public function getExport()
+    public function getExportLog()
     {
-        return $this->registry->registry('orderexport_export');
+        return $this->registry->registry('orderexport_exportlog');
     }
 }

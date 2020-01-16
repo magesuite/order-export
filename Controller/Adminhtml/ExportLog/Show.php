@@ -1,6 +1,6 @@
 <?php
 
-namespace MageSuite\OrderExport\Controller\Adminhtml\Export;
+namespace MageSuite\OrderExport\Controller\Adminhtml\ExportLog;
 
 class Show extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
@@ -12,28 +12,28 @@ class Show extends \Magento\Backend\App\Action implements \Magento\Framework\App
     protected $registry;
 
     /**
-     * @var \MageSuite\OrderExport\Api\ExportRepositoryInterface
+     * @var \MageSuite\OrderExport\Api\ExportLogRepositoryInterface
      */
-    protected $exportRepository;
+    protected $exportLogRepository;
 
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $registry,
-        \MageSuite\OrderExport\Api\ExportRepositoryInterface $exportRepository
+        \MageSuite\OrderExport\Api\ExportLogRepositoryInterface $exportLogRepository
     ) {
         parent::__construct($context);
 
         $this->registry = $registry;
-        $this->exportRepository = $exportRepository;
+        $this->exportLogRepository = $exportLogRepository;
     }
 
     public function execute()
     {
-        $exportId = $this->getRequest()->getParam('export_id');
+        $exportLogId = $this->getRequest()->getParam('export_id');
 
         try {
-            $export = $this->exportRepository->getById($exportId);
-            $this->registry->register('orderexport_export', $export);
+            $exportLog = $this->exportLogRepository->getById($exportLogId);
+            $this->registry->register('orderexport_exportlog', $exportLog);
 
             $result = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_PAGE);
             $result->getConfig()->getTitle()->prepend(__('Orders Export Log'));

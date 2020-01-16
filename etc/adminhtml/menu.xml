@@ -9,7 +9,7 @@
 <!--             resource="Magento_ImportExport::history"/>-->
         <add id="MageSuite_OrderExport::order_export_log" title="Orders Export Log" translate="title"
              module="MageSuite_OrderExport"
-             sortOrder="55" parent="Magento_Backend::system_convert" action="orderexport/export/index"
+             sortOrder="55" parent="Magento_Backend::system_convert" action="orderexport/exportlog/index"
              resource="Magento_ImportExport::history"/>
 
     </menu>

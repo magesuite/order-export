@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="MageSuite\OrderExport\Api\Data\ExportInterface" type="MageSuite\OrderExport\Model\Data\Export" />
-    <preference for="MageSuite\OrderExport\Api\Data\ExportSearchResultInterface" type="MageSuite\OrderExport\Model\ExportSearchResult" />
-    <preference for="MageSuite\OrderExport\Api\ExportRepositoryInterface" type="MageSuite\OrderExport\Model\ExportRepository" />
+    <preference for="MageSuite\OrderExport\Api\Data\ExportLogInterface" type="MageSuite\OrderExport\Model\Data\ExportLog" />
+    <preference for="MageSuite\OrderExport\Api\Data\ExportLogSearchResultInterface" type="MageSuite\OrderExport\Model\ExportLogSearchResult" />
+    <preference for="MageSuite\OrderExport\Api\ExportLogRepositoryInterface" type="MageSuite\OrderExport\Model\ExportLogRepository" />
 
     <preference for="MageSuite\OrderExport\Api\Data\ExportStatusInterface" type="MageSuite\OrderExport\Model\Data\ExportStatus" />
     <preference for="MageSuite\OrderExport\Api\ExportStatusRepositoryInterface" type="MageSuite\OrderExport\Model\ExportStatusRepository" />

@@ -1,7 +1,7 @@
 <?php
 namespace MageSuite\OrderExport\Api\Data;
 
-interface ExportInterface
+interface ExportLogInterface
 {
     /**
      * @param int $exportId

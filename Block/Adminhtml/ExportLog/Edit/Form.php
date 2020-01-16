@@ -1,6 +1,6 @@
 <?php
 
-namespace MageSuite\OrderExport\Block\Adminhtml\Export\Edit;
+namespace MageSuite\OrderExport\Block\Adminhtml\ExportLog\Edit;
 
 class Form extends \Magento\Backend\Block\Widget\Form\Generic
 {

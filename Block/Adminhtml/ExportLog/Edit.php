@@ -1,6 +1,6 @@
 <?php
 
-namespace MageSuite\OrderExport\Block\Adminhtml\Export;
+namespace MageSuite\OrderExport\Block\Adminhtml\ExportLog;
 
 class Edit extends \Magento\Backend\Block\Widget\Form\Container
 {
@@ -17,7 +17,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
 
         $this->_objectId = 'orderexport_id';
         $this->_blockGroup = 'MageSuite_OrderExport';
-        $this->_controller = 'adminhtml_export';
+        $this->_controller = 'adminhtml_exportlog';
     }
 
     /**

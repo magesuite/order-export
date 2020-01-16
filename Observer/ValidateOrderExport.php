@@ -10,16 +10,16 @@ class ValidateOrderExport implements \Magento\Framework\Event\ObserverInterface
     protected $validator;
 
     /**
-     * @var \MageSuite\OrderExport\Api\ExportRepositoryInterface
+     * @var \MageSuite\OrderExport\Api\ExportLogRepositoryInterface
      */
-    protected $exportRepository;
+    protected $exportLogRepository;
 
     public function __construct(
         \MageSuite\OrderExport\Service\FTP\Validator $validator,
-        \MageSuite\OrderExport\Api\ExportRepositoryInterface $exportRepository
+        \MageSuite\OrderExport\Api\ExportLogRepositoryInterface $exportLogRepository
     ) {
         $this->validator = $validator;
-        $this->exportRepository = $exportRepository;
+        $this->exportLogRepository = $exportLogRepository;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -33,7 +33,7 @@ class ValidateOrderExport implements \Magento\Framework\Event\ObserverInterface
 
         $export->setUploadedStatus($validationResultText);
 
-        $this->exportRepository->save($export);
+        $this->exportLogRepository->save($export);
     }
 
     public function resultToText($validationResult)

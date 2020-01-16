@@ -2,7 +2,7 @@
 
 namespace MageSuite\OrderExport\Model\ResourceModel;
 
-class Export extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+class ExportLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     protected function _construct()
     {

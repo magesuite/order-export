@@ -20,7 +20,7 @@
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>MageSuite_OrderExport::config_orderexport</aclResource>
-        <dataProvider class="MageSuite\OrderExport\Ui\DataProvider\LogDataProvider" name="orderexport_log_listing_data_source">
+        <dataProvider class="MageSuite\OrderExport\Ui\DataProvider\ExportLogDataProvider" name="orderexport_log_listing_data_source">
             <settings>
                 <requestFieldName>export_id</requestFieldName>
                 <primaryFieldName>export_id</primaryFieldName>
@@ -92,7 +92,7 @@
         <actionsColumn name="actions" class="MageSuite\OrderExport\Ui\Component\Listing\Column\LogActions">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="showUrlPath" xsi:type="string">orderexport/export/show</item>
+                    <item name="showUrlPath" xsi:type="string">orderexport/exportlog/show</item>
                 </item>
             </argument>
             <settings>

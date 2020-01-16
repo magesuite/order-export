@@ -1,6 +1,6 @@
 <?php
 
-namespace MageSuite\OrderExport\Controller\Adminhtml\Export;
+namespace MageSuite\OrderExport\Controller\Adminhtml\ExportLog;
 
 class Index extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
