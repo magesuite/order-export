@@ -2,27 +2,26 @@
 
 namespace MageSuite\OrderExport\Observer;
 
-use MageSuite\OrderExport\Services\FTP\Uploader;
-use Magento\Framework\Event\ObserverInterface;
-
-class UploadOrderExport implements ObserverInterface
+class UploadOrderExport implements \Magento\Framework\Event\ObserverInterface
 {
 
     /**
-     * @var Uploader
+     * @var \MageSuite\OrderExport\Service\UploaderInterface
      */
-    private $uploader;
+    protected $uploader;
 
     public function __construct(
-        \MageSuite\OrderExport\Services\FTP\Uploader $uploader
-    )
-    {
+        \MageSuite\OrderExport\Service\UploaderInterface $uploader
+    ) {
         $this->uploader = $uploader;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $filePath = $observer->getEvent()->getData('filePath');
-        $this->uploader->upload($filePath);
+        $result = $observer->getEvent()->getData('result');
+
+        foreach ($result['generatedFiles'] as $file) {
+            $this->uploader->upload($file['filePath']);
+        }
     }
 }

@@ -1,9 +1,135 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="MageSuite\OrderExport\Api\Data\ExportLogInterface" type="MageSuite\OrderExport\Model\Data\ExportLog" />
+    <preference for="MageSuite\OrderExport\Api\Data\ExportLogSearchResultInterface" type="MageSuite\OrderExport\Model\ExportLogSearchResult" />
+    <preference for="MageSuite\OrderExport\Api\ExportLogRepositoryInterface" type="MageSuite\OrderExport\Model\ExportLogRepository" />
+
+    <preference for="MageSuite\OrderExport\Api\Data\ExportStatusInterface" type="MageSuite\OrderExport\Model\Data\ExportStatus" />
+    <preference for="MageSuite\OrderExport\Api\ExportStatusRepositoryInterface" type="MageSuite\OrderExport\Model\ExportStatusRepository" />
+
+    <preference for="MageSuite\OrderExport\Model\OrderRepositoryInterface" type="MageSuite\OrderExport\Model\OrderRepository" />
+    <preference for="MageSuite\OrderExport\Model\OrderFilterInterface" type="MageSuite\OrderExport\Model\OrderFilter" />
+
+    <preference for="MageSuite\OrderExport\Service\FileNameGeneratorInterface" type="MageSuite\OrderExport\Service\FileNameGenerator" />
+    <preference for="MageSuite\OrderExport\Service\UploaderInterface" type="MageSuite\OrderExport\Service\FTP\Uploader" />
+    <preference for="MageSuite\OrderExport\Service\UploadValidatorInterface" type="MageSuite\OrderExport\Service\FTP\Validator" />
+
+    <preference for="MageSuite\OrderExport\Service\Converter\OrderInterface" type="MageSuite\OrderExport\Service\Converter\Order" />
+    <preference for="MageSuite\OrderExport\Service\Converter\OrderAdditionalFieldsInterface" type="MageSuite\OrderExport\Service\Converter\OrderAdditionalFields" />
+    <preference for="MageSuite\OrderExport\Service\Converter\OrderItemInterface" type="MageSuite\OrderExport\Service\Converter\OrderItem" />
+    <preference for="MageSuite\OrderExport\Service\Converter\OrderItemAdditionalFieldsInterface" type="MageSuite\OrderExport\Service\Converter\OrderItemAdditionalFields" />
+
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="orderexport_export_manual" xsi:type="object">MageSuite\OrderExport\Console\Command\Export</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageSuite\OrderExport\Service\Export\ExporterFactory">
+        <arguments>
+            <argument name="exporterMap" xsi:type="array">
+                <item name="csv" xsi:type="array">
+                    <item name="grouped" xsi:type="object">MageSuite\OrderExport\Service\Export\Exporter\Csv\Grouped</item>
+                    <item name="separated" xsi:type="object">MageSuite\OrderExport\Service\Export\Exporter\Csv\Separated</item>
+                </item>
+                <item name="xml" xsi:type="array">
+                    <item name="grouped" xsi:type="object">MageSuite\OrderExport\Service\Export\Exporter\Xml\Grouped</item>
+                    <item name="separated" xsi:type="object">MageSuite\OrderExport\Service\Export\Exporter\Xml\Separated</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageSuite\OrderExport\Service\Writer\WriterFactory">
+        <arguments>
+            <argument name="writerMap" xsi:type="array">
+                <item name="csv" xsi:type="object">MageSuite\OrderExport\Service\Writer\Csv</item>
+                <item name="xml" xsi:type="object">MageSuite\OrderExport\Service\Writer\Xml</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageSuite\OrderExport\Service\Writer\Xml">
+        <arguments>
+            <argument name="xmlNodeProcessors" xsi:type="array">
+                <item name="headNode" xsi:type="object">MageSuite\OrderExport\Service\Writer\XmlNodeProcessor\HeadNode</item>
+                <item name="paymentNode" xsi:type="object">MageSuite\OrderExport\Service\Writer\XmlNodeProcessor\PaymentNode</item>
+                <item name="shippingNode" xsi:type="object">MageSuite\OrderExport\Service\Writer\XmlNodeProcessor\ShippingNode</item>
+                <item name="addressNode" xsi:type="object">MageSuite\OrderExport\Service\Writer\XmlNodeProcessor\AddressNode</item>
+                <item name="cartNode" xsi:type="object">MageSuite\OrderExport\Service\Writer\XmlNodeProcessor\CartNode</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageSuite\OrderExport\Model\Config\StatusesList">
+        <arguments>
+            <argument name="statuses" xsi:type="array">
+                <item name="ready_to_generate" xsi:type="array">
+                    <item name="status" xsi:type="string">ready_to_generate</item>
+                    <item name="label" xsi:type="string">Order ready to generate</item>
+                    <item name="completed" xsi:type="string">0</item>
+                    <item name="disabled" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">100</item>
+                    <item name="error" xsi:type="string">0</item>
+                    <item name="error_message" xsi:type="string"></item>
+                </item>
+                <item name="file_generated" xsi:type="array">
+                    <item name="status" xsi:type="string">file_generated</item>
+                    <item name="label" xsi:type="string">Order export file was generated</item>
+                    <item name="completed" xsi:type="string">0</item>
+                    <item name="disabled" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">200</item>
+                    <item name="error" xsi:type="string">0</item>
+                    <item name="error_message" xsi:type="string"></item>
+                </item>
+                <item name="file_exported" xsi:type="array">
+                    <item name="status" xsi:type="string">file_exported</item>
+                    <item name="label" xsi:type="string">Order export file was exported to ERP</item>
+                    <item name="completed" xsi:type="string">0</item>
+                    <item name="disabled" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">300</item>
+                    <item name="error" xsi:type="string">0</item>
+                    <item name="error_message" xsi:type="string"></item>
+                </item>
+                <item name="file_processed_by_erp" xsi:type="array">
+                    <item name="status" xsi:type="string">file_processed_by_erp</item>
+                    <item name="label" xsi:type="string">Order export file was processed by ERP</item>
+                    <item name="completed" xsi:type="string">0</item>
+                    <item name="disabled" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">400</item>
+                    <item name="error" xsi:type="string">0</item>
+                    <item name="error_message" xsi:type="string"></item>
+                </item>
+                <item name="payment_created" xsi:type="array">
+                    <item name="status" xsi:type="string">payment_created</item>
+                    <item name="label" xsi:type="string">Order was payed</item>
+                    <item name="completed" xsi:type="string">0</item>
+                    <item name="disabled" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">500</item>
+                    <item name="error" xsi:type="string">0</item>
+                    <item name="error_message" xsi:type="string"></item>
+                </item>
+                <item name="order_shipped" xsi:type="array">
+                    <item name="status" xsi:type="string">order_shipped</item>
+                    <item name="label" xsi:type="string">Order was shipped</item>
+                    <item name="completed" xsi:type="string">0</item>
+                    <item name="disabled" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">600</item>
+                    <item name="error" xsi:type="string">0</item>
+                    <item name="error_message" xsi:type="string"></item>
+                </item>
+                <item name="order_completed" xsi:type="array">
+                    <item name="status" xsi:type="string">order_completed</item>
+                    <item name="label" xsi:type="string">Order completed</item>
+                    <item name="completed" xsi:type="string">0</item>
+                    <item name="disabled" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">700</item>
+                    <item name="error" xsi:type="string">0</item>
+                    <item name="error_message" xsi:type="string"></item>
+                </item>
             </argument>
         </arguments>
     </type>

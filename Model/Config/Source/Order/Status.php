@@ -7,7 +7,7 @@ class Status implements \Magento\Framework\Option\ArrayInterface
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory
      */
-    private $statusCollectionFactory;
+    protected $statusCollectionFactory;
 
     public function __construct(\Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory $statusCollectionFactory)
     {

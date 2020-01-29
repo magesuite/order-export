@@ -1,0 +1,32 @@
+{
+    "orderexport_log": {
+        "column": {
+            "export_id": true,
+            "type": true,
+            "exported_filename": true,
+            "success": true,
+            "success_ids": true,
+            "started_at": true,
+            "finished_at": true,
+            "search_order_status": true,
+            "uploaded_files_status": true,
+            "exported_count": true,
+            "exported_ids": true,
+            "used_order_filters": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "order_export_status": {
+        "column": {
+            "id": true,
+            "order_id": true,
+            "increment_id": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

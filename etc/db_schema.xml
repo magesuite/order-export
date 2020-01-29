@@ -1,0 +1,26 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="orderexport_log" resource="default" engine="innodb">
+        <column name="export_id" xsi:type="int" padding="10" unsigned="false" nullable="false" identity="true" comment="Export ID"/>
+        <column name="type" xsi:type="varchar" nullable="false" length="20" comment="Export type" />
+        <column name="exported_filename" xsi:type="varchar" nullable="false" length="255" default="" comment="Exported filename" />
+        <column name="exported_count" xsi:type="int" padding="10" nullable="false" onCreate="migrateDataFrom(success)" default="0" comment="Exported success count" />
+        <column name="exported_ids" xsi:type="text" nullable="true" onCreate="migrateDataFrom(success_ids)" comment="Exported successfully" />
+        <column name="started_at" xsi:type="timestamp" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Export started at" />
+        <column name="finished_at" xsi:type="timestamp" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Export finished at" />
+        <column name="used_order_filters" xsi:type="varchar" nullable="true" onCreate="migrateDataFrom(search_order_status)" length="255" comment="Search order status" />
+        <column name="uploaded_files_status" xsi:type="varchar" nullable="true" length="255" comment="Uploaded Files Status" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="export_id"/>
+        </constraint>
+    </table>
+
+    <table name="order_export_status" resource="default" engine="innodb">
+        <column name="id" xsi:type="int" padding="10" unsigned="false" nullable="false" identity="true" comment="ID"/>
+        <column name="order_id" xsi:type="int" padding="10" unsigned="false" nullable="false" comment="Order ID" />
+        <column name="increment_id" xsi:type="varchar" nullable="false" length="255" comment="Order Increment ID" />
+        <column name="status" xsi:type="text" nullable="false" comment="Status" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

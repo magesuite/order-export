@@ -2,49 +2,44 @@
 
 namespace MageSuite\OrderExport\Observer;
 
-use MageSuite\OrderExport\Services\FTP\Uploader;
-use Magento\Framework\Event\ObserverInterface;
-
-class ValidateOrderExport implements ObserverInterface
+class ValidateOrderExport implements \Magento\Framework\Event\ObserverInterface
 {
-
+    /**
+     * @var \MageSuite\OrderExport\Service\UploadValidatorInterface
+     */
+    protected $validator;
 
     /**
-     * @var \MageSuite\OrderExport\Services\FTP\Validator
+     * @var \MageSuite\OrderExport\Api\ExportLogRepositoryInterface
      */
-    private $validator;
-    /**
-     * @var \MageSuite\OrderExport\Repository\ExportRepository
-     */
-    private $exportRepository;
+    protected $exportLogRepository;
 
     public function __construct(
-        \MageSuite\OrderExport\Services\FTP\Validator $validator,
-        \MageSuite\OrderExport\Repository\ExportRepository $exportRepository
-    )
-    {
+        \MageSuite\OrderExport\Service\UploadValidatorInterface $validator,
+        \MageSuite\OrderExport\Api\ExportLogRepositoryInterface $exportLogRepository
+    ) {
         $this->validator = $validator;
-        $this->exportRepository = $exportRepository;
+        $this->exportLogRepository = $exportLogRepository;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $result = $observer->getEvent()->getData('result');
-        $export = $observer->getEvent()->getData('export');
+        $exportLog = $observer->getEvent()->getData('export_log');
 
         $validationResult = $this->validator->validate($result);
 
         $validationResultText = $this->resultToText($validationResult);
 
-        $export->setUploadedStatus($validationResultText);
+        $exportLog->setUploadedStatus($validationResultText);
 
-        $this->exportRepository->save($export);
+        $this->exportLogRepository->save($exportLog);
     }
 
     public function resultToText($validationResult)
     {
         if (empty($validationResult)) {
-            return "Upload disabled.";
+            return 'Upload disabled.';
         }
 
         $text = 'Success:' . "\n";
