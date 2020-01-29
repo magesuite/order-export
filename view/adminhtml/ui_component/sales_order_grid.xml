@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="sales_order_columns">
+        <column name="export_status" class="MageSuite\OrderExport\Ui\Component\Listing\Column\ExportStatus">
+            <settings>
+                <label translate="true">Exported</label>
+                <visible>true</visible>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+                <filter>false</filter>
+                <resizeEnabled>true</resizeEnabled>
+            </settings>
+        </column>
+    </columns>
+</listing>

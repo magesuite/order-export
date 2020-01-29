@@ -1,18 +1,14 @@
 <?php
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 \Magento\TestFramework\Helper\Bootstrap::getInstance()->reinitialize();
 
 /** @var \Magento\TestFramework\ObjectManager $objectManager */
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
 /** @var \Magento\Catalog\Api\CategoryLinkManagementInterface $categoryLinkManagement */
-$categoryLinkManagement = $objectManager->create('Magento\Catalog\Api\CategoryLinkManagementInterface');
+$categoryLinkManagement = $objectManager->create(\Magento\Catalog\Api\CategoryLinkManagementInterface::class);
 
 /** @var $product \Magento\Catalog\Model\Product */
-$product = $objectManager->create('Magento\Catalog\Model\Product');
+$product = $objectManager->create(\Magento\Catalog\Model\Product::class);
 $product->isObjectNew(true);
 $product->setTypeId(\Magento\Catalog\Model\Product\Type::TYPE_SIMPLE)
     ->setId(1)
@@ -132,7 +128,7 @@ $oldOptions = [
 $options = [];
 
 /** @var \Magento\Catalog\Api\Data\ProductCustomOptionInterfaceFactory $customOptionFactory */
-$customOptionFactory = $objectManager->create('Magento\Catalog\Api\Data\ProductCustomOptionInterfaceFactory');
+$customOptionFactory = $objectManager->create(Magento\Catalog\Api\Data\ProductCustomOptionInterfaceFactory::class);
 
 foreach ($oldOptions as $option) {
     /** @var \Magento\Catalog\Api\Data\ProductCustomOptionInterface $option */
@@ -145,7 +141,7 @@ foreach ($oldOptions as $option) {
 $product->setOptions($options);
 
 /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepositoryFactory */
-$productRepositoryFactory = $objectManager->create('Magento\Catalog\Api\ProductRepositoryInterface');
+$productRepositoryFactory = $objectManager->create(\Magento\Catalog\Api\ProductRepositoryInterface::class);
 $productRepositoryFactory->save($product);
 
 $categoryLinkManagement->assignProductToCategories(

@@ -1,0 +1,56 @@
+<?php
+/** @var \MageSuite\OrderExport\Api\Data\ExportLogInterface $exportLog */
+$exportLog = $block->getExportLog();
+?>
+
+<div class="page-main-actions">
+    <div class="page-actions-placeholder"></div>
+    <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+        <div class="page-actions-inner">
+            <div class="page-actions-buttons">
+                <button id="back" title="Back" type="button" class="action- scalable back" onclick="setLocation('<?= $block->getUrl('*/*/list') ?>')" data-ui-id="back-button">
+                    <span><?= __('Back'); ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="admin__table-secondary">
+    <tr>
+        <th><?=__('Id')?></th>
+        <td><?= $exportLog->getExportId() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Type')?></th>
+        <td><?= $exportLog->getType() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Used Order Filters')?></th>
+        <td><?= $exportLog->getUsedOrderFilters() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Exported filename')?></th>
+        <td><?= $exportLog->getExportedFilename() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Started at')?></th>
+        <td><?= $exportLog->getStartedAt() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Finished at')?></th>
+        <td><?= $exportLog->getFinishedAt() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Exported orders amount')?></th>
+        <td><?= $exportLog->getExportedCount() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Exported IDs')?></th>
+        <td><?= $exportLog->getExportedIds() ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Uploaded Files Status')?></th>
+        <td><?= nl2br($exportLog->getUploadedFilesStatus()) ?></td>
+    </tr>
+</table>
