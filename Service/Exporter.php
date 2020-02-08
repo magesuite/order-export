@@ -94,7 +94,8 @@ class Exporter extends \Magento\Framework\DataObject
             ]
         );
 
-        $this->eventManager->dispatch('orderexport_export_validate',
+        $this->eventManager->dispatch(
+            'orderexport_export_validate',
             [
                 'result' => $result,
                 'export_log' => $exportLog

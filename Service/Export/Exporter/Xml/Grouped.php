@@ -25,7 +25,7 @@ class Grouped extends \MageSuite\OrderExport\Service\Export\Exporter implements 
             'fileName' => $filename,
             'generatedFiles' => [
                 'fileName' => $filename,
-                'filepath' => $filePath
+                'filePath' => $filePath
             ]
         ];
     }

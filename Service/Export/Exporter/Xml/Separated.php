@@ -23,7 +23,7 @@ class Separated extends \MageSuite\OrderExport\Service\Export\Exporter implement
             $exportResult['exportedIds'][] = $order['increment_id'];
             $exportResult['generatedFiles'][] = [
                 'fileName' => $filename,
-                'filepath' => $filePath
+                'filePath' => $filePath
             ];
 
         }
