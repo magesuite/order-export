@@ -26,7 +26,7 @@ class Xml extends \MageSuite\OrderExport\Service\Writer\Writer implements \MageS
     {
         $exportStrategy = $this->configuration->getExportStrategy();
 
-        $xml = new \DOMDocument('1.0', 'utf-8');;
+        $xml = new \DOMDocument('1.0', 'utf-8');
 
         if ($exportStrategy == \MageSuite\OrderExport\Model\Config\Source\Export\Strategy::EXPORT_STRATEGY_GROUPED) {
             $containerElement = $xml->createElement('Orders');
