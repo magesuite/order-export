@@ -71,7 +71,9 @@ class OrderFilter implements \MageSuite\OrderExport\Model\OrderFilterInterface
 
         $usedFilters = [];
         foreach ($filters as $filter) {
-            $usedFilters[] = sprintf(self::USED_FILTER_TEXT_FORMAT, $filter['field'], $filter['value'], $filter['condition']);
+            $filterValue = is_array($filter['value']) ? implode(',', $filter['value']) : $filter['value'];
+
+            $usedFilters[] = sprintf(self::USED_FILTER_TEXT_FORMAT, $filter['field'], $filterValue, $filter['condition']);
         }
 
         return implode("\n", $usedFilters);
