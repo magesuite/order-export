@@ -11,7 +11,6 @@
                 <ftp_passive>0</ftp_passive>
                 <ftp_ssl>1</ftp_ssl>
                 <cron_schedule>0 18 * * *</cron_schedule>
-                <export_strategy>grouped</export_strategy>
                 <export_orders_daily>0</export_orders_daily>
                 <export_filename>order_%increment_id%_%export_date%</export_filename>
                 <export_file_type>csv</export_file_type>
