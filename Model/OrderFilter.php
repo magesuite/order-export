@@ -66,7 +66,7 @@ class OrderFilter implements \MageSuite\OrderExport\Model\OrderFilterInterface
     public function getUsedOrderFilters($filters = [])
     {
         if (empty($filters)) {
-            return [];
+            return null;
         }
 
         $usedFilters = [];
