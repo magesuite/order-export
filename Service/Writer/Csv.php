@@ -42,7 +42,8 @@ class Csv extends \MageSuite\OrderExport\Service\Writer\Writer implements \MageS
     public function write($order)
     {
         $line = [];
-        foreach ($this->getColumns() as $column) {
+        foreach ($this->getColumns() as $index => $value) {
+            $column = is_string($index) ? $index : $value;
             $line[$column] = $order[$column] ?? '';
         }
 

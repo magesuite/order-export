@@ -27,6 +27,13 @@ class Export extends \Symfony\Component\Console\Command\Command
     protected function configure()
     {
         $this->addOption(
+            'order_ids',
+            '-i',
+            \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL,
+            'Search orders by entity_id, separated by comma'
+        );
+
+        $this->addOption(
             'date_from',
             '-f',
             \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL,
@@ -60,8 +67,11 @@ class Export extends \Symfony\Component\Console\Command\Command
     {
         $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
 
+        $orderIds = empty($input->getOption('order_ids')) ? null : explode(',', $input->getOption('order_ids'));
+
         $data = [
             'type' => \MageSuite\OrderExport\Helper\Configuration::MANUAL_EXPORT_TYPE,
+            'order_ids' => $orderIds,
             'status' => $input->getArgument('status'),
             'status_after_export' => $input->getArgument('status_after_export'),
             'date_from' => $input->getOption('date_from'),

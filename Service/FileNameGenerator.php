@@ -14,7 +14,7 @@ class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGenera
         $this->configuration = $configuration;
     }
 
-    public function getFileName($incrementId = null, $strategyType = null)
+    public function getFileName($incrementId = null, $strategyType = null, $entityId = null)
     {
         $strategyType = $strategyType ?? $this->configuration->getExportStrategy();
 
@@ -23,7 +23,7 @@ class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGenera
                 $filename = $this->getGroupedFilename();
                 break;
             case 'separated':
-                $filename = $this->getSeparatedFilename($incrementId);
+                $filename = $this->getSeparatedFilename($incrementId, $entityId);
                 break;
             default:
                 $filename = 'order_export';
@@ -35,15 +35,17 @@ class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGenera
 
     protected function getGroupedFilename()
     {
+        $filename = str_replace('%entity_id%', 'entity_id', $this->configuration->getExportFilename());
         $filename = str_replace('%increment_id%', 'increment_id', $this->configuration->getExportFilename());
         $filename = str_replace('%export_date%', $this->getExportDate(), $filename);
 
         return $filename;
     }
 
-    protected function getSeparatedFilename($incrementId)
+    protected function getSeparatedFilename($incrementId, $entityId)
     {
-        $filename = str_replace('%increment_id%', $incrementId, $this->configuration->getExportFilename());
+        $filename = str_replace('%entity_id%', $entityId, $this->configuration->getExportFilename());
+        $filename = str_replace('%increment_id%', $incrementId, $filename);
         $filename = str_replace('%export_date%', $this->getExportDate(), $filename);
 
         return $filename;

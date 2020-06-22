@@ -43,8 +43,6 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
         $shippingAddress = $order->getShippingAddress();
         $result['order']['shipping'] = $this->getAddressFields($shippingAddress);
 
-        $result['order']['shipping_amount'] = number_format($order->getBaseShippingInclTax(), 2);
-        $result['order']['shipping_method'] = $this->getShipmentMethodTitle($order);
         $result['order']['payment_method'] = $order->getPayment()->getMethod();
 
         $this->addAdditionalFieldsToOrder($result['order'], $order);
@@ -75,6 +73,7 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
             'postcode' => $address->getPostcode(),
             'region' => $address->getRegion(),
             'country' => $address->getCountryId(),
+            'telephone' => $address->getTelephone(),
         ];
     }
 
