@@ -64,6 +64,12 @@
         </arguments>
     </type>
 
+    <virtualType name="MageSuite\OrderExport\Service\ExporterSelected" type="MageSuite\OrderExport\Service\Exporter">
+        <arguments>
+            <argument name="orderFilter" xsi:type="object">MageSuite\OrderExport\Model\OrderFilterSelected</argument>
+        </arguments>
+    </virtualType>
+
     <type name="MageSuite\OrderExport\Model\Config\StatusesList">
         <arguments>
             <argument name="statuses" xsi:type="array">
