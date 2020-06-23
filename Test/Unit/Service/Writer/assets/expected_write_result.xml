@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Order>
   <Head>
     <Mode>TEST</Mode>
@@ -9,57 +9,58 @@
     <Client>
       <MagentoClientId>1</MagentoClientId>
     </Client>
-    <OrderDate>2018-01-24 15:43:55</OrderDate>
-    <MagentoOrderNo>100000001</MagentoOrderNo>
+    <OrderDate>2020-12-12 12:12:12</OrderDate>
+    <MagentoOrderNo>1</MagentoOrderNo>
   </Head>
   <Payment>
     <PaymentType>checkmo</PaymentType>
   </Payment>
   <Delivery>
-    <DeliveryType>flatrate_flatrate</DeliveryType>
+    <DeliveryType>Flatrate</DeliveryType>
     <ShippingCosts>5</ShippingCosts>
   </Delivery>
   <Address>
     <DeliveryAddress>
-      <Title>Mr</Title>
-      <FirstName>firstname</FirstName>
-      <LastName>lastname</LastName>
-      <Company/>
-      <Street1>street</Street1>
-      <Country>US</Country>
-      <ZipCode>11111</ZipCode>
-      <City>Los Angeles</City>
-    </DeliveryAddress>
-    <InvoiceAddress>
-      <Title>Mr</Title>
+      <Title>Sir</Title>
       <FirstName>firstname</FirstName>
       <LastName>lastname</LastName>
       <Email>customer@null.com</Email>
-      <Company/>
-      <Street1>street</Street1>
-      <Country>US</Country>
+      <Company></Company>
+      <Street1>street 1</Street1>
       <ZipCode>11111</ZipCode>
-      <City>Los Angeles</City>
+      <City>city</City>
+      <Country>US</Country>
+    </DeliveryAddress>
+    <InvoiceAddress>
+      <Title>Sir</Title>
+      <FirstName>firstname</FirstName>
+      <LastName>lastname</LastName>
+      <Email>customer@null.com</Email>
+      <Company></Company>
+      <Street1>street 1</Street1>
+      <ZipCode>11111</ZipCode>
+      <City>city</City>
+      <Country>US</Country>
     </InvoiceAddress>
   </Address>
   <Cart>
     <Item>
       <PosNo>1</PosNo>
-      <ErpProductNo>34</ErpProductNo>
-      <MagentoProductNo>34</MagentoProductNo>
-      <MagentoProductSku>sku0</MagentoProductSku>
-      <ProductName>TestName</ProductName>
-      <Quantity>2</Quantity>
-      <PricePerItem>10</PricePerItem>
+      <ErpProductNo>1</ErpProductNo>
+      <MagentoProductNo>1</MagentoProductNo>
+      <MagentoProductSku>sku1</MagentoProductSku>
+      <ProductName>Product Name 1</ProductName>
+      <Quantity>10</Quantity>
+      <PricePerItem>9.99</PricePerItem>
     </Item>
     <Item>
       <PosNo>2</PosNo>
-      <ErpProductNo>34</ErpProductNo>
-      <MagentoProductNo>34</MagentoProductNo>
-      <MagentoProductSku>sku1</MagentoProductSku>
-      <ProductName>TestName2</ProductName>
-      <Quantity>2</Quantity>
-      <PricePerItem>10</PricePerItem>
+      <ErpProductNo>2</ErpProductNo>
+      <MagentoProductNo>2</MagentoProductNo>
+      <MagentoProductSku>sku2</MagentoProductSku>
+      <ProductName>Product Name 2</ProductName>
+      <Quantity>5</Quantity>
+      <PricePerItem>5.45</PricePerItem>
     </Item>
   </Cart>
 </Order>

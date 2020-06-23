@@ -19,7 +19,7 @@ class Csv extends \MageSuite\OrderExport\Service\Writer\Writer implements \MageS
         foreach ($orders as $order) {
             $items = $order['items'];
             foreach ($items as $index => $item) {
-                $line = $this->getLine($order, $item, $position);
+                $line = $this->getLine($order, $item);
                 fputcsv($this->fileHandler, $line, $this->getDelimiter(), $this->getEnclosure());
             }
         }
@@ -72,9 +72,8 @@ class Csv extends \MageSuite\OrderExport\Service\Writer\Writer implements \MageS
             'PaymentType',
             'DeliveryType',
             'ShippingCosts',
-            'ErpProductNo',
-            'MagentoProductNo',
-            'MagentoProductSku',
+            'ProductNo',
+            'ProductSku',
             'ProductName',
             'Quantity',
             'PricePerItem'
@@ -110,9 +109,8 @@ class Csv extends \MageSuite\OrderExport\Service\Writer\Writer implements \MageS
             'PaymentType' => $order['order']['payment_method'],
             'DeliveryType' => $order['order']['shipping_method'],
             'ShippingCosts' => $order['order']['shipping_amount'],
-            'ErpProductNo' => $item['product_id'],
-            'MagentoProductNo' => $item['product_id'],
-            'MagentoProductSku' => $item['sku'],
+            'ProductNo' => $item['product_id'],
+            'ProductSku' => $item['sku'],
             'ProductName' => $item['name'],
             'Quantity' => $item['qty_ordered'],
             'PricePerItem' => $item['price_incl_tax']
