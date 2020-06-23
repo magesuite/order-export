@@ -36,7 +36,7 @@ class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGenera
     protected function getGroupedFilename()
     {
         $filename = str_replace('%entity_id%', 'entity_id', $this->configuration->getExportFilename());
-        $filename = str_replace('%increment_id%', 'increment_id', $this->configuration->getExportFilename());
+        $filename = str_replace('%increment_id%', 'increment_id', $filename);
         $filename = str_replace('%export_date%', $this->getExportDate(), $filename);
 
         return $filename;

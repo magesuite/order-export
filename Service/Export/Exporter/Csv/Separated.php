@@ -16,19 +16,11 @@ class Separated extends \MageSuite\OrderExport\Service\Export\Exporter implement
             $filePath = $this->getFilePath($filename);
 
             $writer->openFile($filePath);
-            $writer->writeHeader();
-
-            $writer->write($order['order']);
-
-            foreach ($order['items'] as $item) {
-                $writer->write($item);
-            }
-
+            $writer->write([$order]);
             $writer->closeFile();
 
             $exportResult['exportedCount'] += 1;
             $exportResult['exportedIds'][] = $order['increment_id'];
-
             $exportResult['generatedFiles'][] = [
                 'fileName' => $filename,
                 'filePath' => $filePath
