@@ -41,7 +41,7 @@ class MassExport extends \Magento\Backend\App\Action
         $exporter = $this->exporterSelectedFactory->create(['data' => $data]);
         $result = $exporter->execute();
 
-        $this->messageManager->addNoticeMessage(__('Export finished, %1 order(s) exported.', $result['exportedCount']));
+        $this->messageManager->addNoticeMessage(__('Export finished, %1 order(s) were exported.', $result['exportedCount']));
 
         return $this->_redirect($this->_redirect->getRefererUrl());
     }
