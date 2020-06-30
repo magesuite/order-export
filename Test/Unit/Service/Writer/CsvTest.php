@@ -11,15 +11,11 @@ class CsvTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-
-        $this->writer = $objectManager->create(\MageSuite\OrderExport\Service\Writer\Csv::class);
+        $this->writer = new \MageSuite\OrderExport\Service\Writer\Csv();
     }
 
     public function testItWritesToFileProperly()
     {
-        $this->markTestSkipped('Need to change logic');
-
         $expectedResult = file_get_contents(__DIR__ . '/assets/expected_write_result.csv');
         $orderData = $this->getOrderData();
 

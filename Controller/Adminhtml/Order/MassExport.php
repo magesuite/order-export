@@ -13,20 +13,20 @@ class MassExport extends \Magento\Backend\App\Action
     protected $messageManager;
 
     /**
-     * @var \MageSuite\OrderExport\Service\ExporterSelectedFactory
+     * @var \MageSuite\OrderExport\Service\SelectedOrdersExporterFactory
      */
-    protected $exporterSelectedFactory;
+    protected $selectedOrdersExporterFactory;
 
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \MageSuite\OrderExport\Service\ExporterSelectedFactory $exporterSelectedFactory
+        \MageSuite\OrderExport\Service\SelectedOrdersExporterFactory $selectedOrdersExporterFactory
     )
     {
         parent::__construct($context);
 
         $this->messageManager = $messageManager;
-        $this->exporterSelectedFactory = $exporterSelectedFactory;
+        $this->selectedOrdersExporterFactory = $selectedOrdersExporterFactory;
     }
 
     public function execute()
@@ -38,7 +38,7 @@ class MassExport extends \Magento\Backend\App\Action
             'order_ids' => $orderIds
         ];
 
-        $exporter = $this->exporterSelectedFactory->create(['data' => $data]);
+        $exporter = $this->selectedOrdersExporterFactory->create(['data' => $data]);
         $result = $exporter->execute();
 
         $this->messageManager->addNoticeMessage(__('Export finished, %1 order(s) were exported.', $result['exportedCount']));

@@ -8,8 +8,8 @@ class Grouped extends \MageSuite\OrderExport\Service\Export\Exporter implements 
         $writer = $this->writerFactory->create();
 
         $convertedOrders = [];
-        foreach ($orders as $key => $order) {
-            $convertedOrders[$key] = $this->convertOrder($order);
+        foreach ($orders as $orderId => $order) {
+            $convertedOrders[$orderId] = $this->convertOrder($order);
         }
 
         $filename = $this->fileNameGenerator->getFileName();

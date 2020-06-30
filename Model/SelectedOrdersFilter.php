@@ -2,7 +2,7 @@
 
 namespace MageSuite\OrderExport\Model;
 
-class OrderFilterSelected implements \MageSuite\OrderExport\Model\OrderFilterInterface
+class SelectedOrdersFilter implements \MageSuite\OrderExport\Model\OrderFilterInterface
 {
     const USED_FILTER_TEXT_FORMAT = 'Field %s, value %s, condition %s';
 

@@ -2,7 +2,7 @@
 
 namespace MageSuite\OrderExport\Service;
 
-class ExporterSelectedFactory
+class SelectedOrdersExporterFactory
 {
     /**
      * @var \Magento\Framework\ObjectManagerInterface
@@ -19,6 +19,6 @@ class ExporterSelectedFactory
 
     public function create($data = [])
     {
-        return $this->objectManager->create(\MageSuite\OrderExport\Service\ExporterSelected::class, $data);
+        return $this->objectManager->create(\MageSuite\OrderExport\Service\SelectedOrdersExporter::class, $data);
     }
 }
