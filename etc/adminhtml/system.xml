@@ -42,7 +42,7 @@
                 </field>
                 <field id="export_filename" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Export Filename</label>
-                    <comment>Please type export filename, you can use %increment_id% (only if orders are exported in separated files) or %export_date%. Example 'order_%increment_id%_%export_date%.csv'</comment>
+                    <comment>Please type export filename, you can use %increment_id%, %entity_id% (only if orders are exported in separated files) or %export_date%. Example 'order_%increment_id%_%export_date%'</comment>
                 </field>
                 <field id="export_date_format" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Export Date Format</label>

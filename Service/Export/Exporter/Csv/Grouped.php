@@ -7,33 +7,26 @@ class Grouped extends \MageSuite\OrderExport\Service\Export\Exporter implements 
     {
         $writer = $this->writerFactory->create();
 
+        $convertedOrders = [];
+        foreach ($orders as $orderId => $order) {
+            $convertedOrders[$orderId] = $this->convertOrder($order);
+        }
+
         $filename = $this->fileNameGenerator->getFileName();
         $filePath = $this->getFilePath($filename);
 
         $writer->openFile($filePath);
-        $writer->writeHeader();
-
-        $exportResult = ['exportedCount' => 0, 'exportedIds' => [], 'generatedFiles' => []];
-
-        foreach ($orders as $order) {
-            $order = $this->convertOrder($order);
-            $writer->write($order['order']);
-
-            foreach ($order['items'] as $item) {
-                $writer->write($item);
-            }
-
-            $exportResult['exportedCount'] += 1;
-            $exportResult['exportedIds'][] = $order['increment_id'];
-        }
-
+        $writer->write($convertedOrders);
         $writer->closeFile();
 
-        $exportResult['generatedFiles'][] = [
+        return [
+            'exportedCount' => count($convertedOrders),
+            'exportedIds' => array_column($convertedOrders, 'increment_id'),
             'fileName' => $filename,
-            'filePath' => $filePath
+            'generatedFiles' => [
+                'fileName' => $filename,
+                'filePath' => $filePath
+            ]
         ];
-
-        return $exportResult;
     }
 }

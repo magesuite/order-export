@@ -29,14 +29,14 @@ class FileNameGeneratorTest extends \PHPUnit\Framework\TestCase
         $dateFormat = $this->configuration->getExportDateFormat();
         $exportType = $this->configuration->getExportFileType();
 
-        $filename = $this->fileNameGenerator->getFileName('102933099', 'separated');
+        $filename = $this->fileNameGenerator->getFileName('102933099', 'separated', '1001');
 
-        $expected = 'order_102933099_' . $date->format($dateFormat) . '.' . $exportType;
+        $expected = 'order_102933099_1001_' . $date->format($dateFormat) . '.' . $exportType;
         $this->assertEquals($expected, $filename);
 
         $filename = $this->fileNameGenerator->getFileName('102933099', 'grouped');
 
-        $expected = 'order_increment_id_' . $date->format($dateFormat) . '.' . $exportType;
+        $expected = 'order_increment_id_entity_id_' . $date->format($dateFormat) . '.' . $exportType;
         $this->assertEquals($expected, $filename);
     }
 }

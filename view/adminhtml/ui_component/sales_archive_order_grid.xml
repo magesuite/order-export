@@ -8,23 +8,11 @@
                         <message translate="true">Do you want to export selected orders?</message>
                         <title translate="true">Export orders</title>
                     </confirm>
-                    <url path="orderexport/order/massExport"/>
+                    <url path="orderexportcustom/order/massExport"/>
                     <type>order_export</type>
                     <label translate="true">Order Export</label>
                 </settings>
             </action>
         </massaction>
     </listingToolbar>
-    <columns name="sales_order_columns">
-        <column name="export_status" class="MageSuite\OrderExport\Ui\Component\Listing\Column\ExportStatus">
-            <settings>
-                <label translate="true">Exported</label>
-                <visible>true</visible>
-                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
-                <sortable>false</sortable>
-                <filter>false</filter>
-                <resizeEnabled>true</resizeEnabled>
-            </settings>
-        </column>
-    </columns>
 </listing>

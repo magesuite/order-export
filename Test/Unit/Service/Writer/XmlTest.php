@@ -19,68 +19,17 @@ class XmlTest extends \PHPUnit\Framework\TestCase
     public function testItWritesToFileProperly()
     {
         $this->markTestSkipped('Need to change logic');
-        
-        $data = [
-            'increment_id' => '100000001',
-            'order' => [
-                'increment_id' => '100000001',
-                'prefix' => 'Mr',
-                'name' => 'firstname lastname',
-                'first_name' => 'firstname',
-                'last_name' => 'lastname',
-                'telephone' => '11111111',
-                'email' => 'customer@null.com',
-                'company' => null,
-                'address' => 'street',
-                'city' => 'Los Angeles',
-                'postcode' => '11111',
-                'region' => 'CA',
-                'country' => 'US',
-                'shipping_prefix' => 'Mr',
-                'shipping_name' => 'firstname lastname',
-                'shipping_first_name' => 'firstname',
-                'shipping_last_name' => 'lastname',
-                'shipping_company' => null,
-                'shipping_address' => 'street',
-                'shipping_city' => 'Los Angeles',
-                'shipping_postcode' => '11111',
-                'shipping_region' => 'CA',
-                'shipping_country' => 'US',
-                'shipping_amount' => '5',
-                'shipping_method' => 'flatrate_flatrate',
-                'payment_method' => 'checkmo',
-                'created_at' => '2018-01-24 15:43:55',
-                'store_id' => '1',
-                'customer_id' => '1'
-            ],
-            'items' => [
-                [
-                    'increment_id' => '100000001',
-                    'sku' => 'sku0',
-                    'product_name' => 'TestName',
-                    'quantity' => '2',
-                    'price' => '10',
-                    'product_id' => '34'
-                ],
-                [
-                    'increment_id' => '100000001',
-                    'sku' => 'sku1',
-                    'product_name' => 'TestName2',
-                    'quantity' => '2',
-                    'price' => '10',
-                    'product_id' => '34'
-                ]
-            ]
-        ];
-        $expected = new \SimpleXMLElement(file_get_contents(__DIR__ . '/assets/expected_write_result.xml'));
+
+        $expectedWrite = new \SimpleXMLElement(file_get_contents(__DIR__ . '/assets/expected_write_result.xml'));
+        $orderData = $this->getOrderData();
 
         $this->writer->openFile(__DIR__ . '/write_test.xml');
-        $this->writer->write([$data]);
+        $this->writer->write($orderData);
         $this->writer->closeFile();
 
         $writeResult = new \SimpleXMLElement(file_get_contents(__DIR__ . '/write_test.xml'));
 
-        $this->assertEquals($expected->asXML(), $writeResult->asXML());
+        $this->assertEquals($expectedWrite->asXML(), $writeResult->asXML());
     }
 
     public function tearDown()
@@ -90,5 +39,73 @@ class XmlTest extends \PHPUnit\Framework\TestCase
         }
 
         unlink(__DIR__ . '/write_test.xml');
+    }
+
+    protected function getOrderData()
+    {
+        $data = [
+            'increment_id' => '1',
+            'order' => [
+                'store_id' => '1',
+                'increment_id' => '1',
+                'payment_method' => 'checkmo',
+                'created_at' => '2020-12-12 12:12:12',
+                'customer_id' => '1',
+                'shipping_method' => 'Flatrate',
+                'shipping_amount' => 5,
+                'billing' => [
+                    'prefix' => 'Sir',
+                    'name' => 'firstname lastname',
+                    'first_name' => 'firstname',
+                    'last_name' => 'lastname',
+                    'email' => 'customer@null.com',
+                    'company' => null,
+                    'street' => 'street 1',
+                    'city' => 'city',
+                    'postcode' => '11111',
+                    'region' => 'CA',
+                    'country' => 'US',
+                    'telephone' => '123456789'
+                ],
+                'shipping' => [
+                    'prefix' => 'Sir',
+                    'name' => 'firstname lastname',
+                    'first_name' => 'firstname',
+                    'last_name' => 'lastname',
+                    'email' => 'customer@null.com',
+                    'company' => null,
+                    'street' => 'street 1',
+                    'city' => 'city',
+                    'postcode' => '11111',
+                    'region' => 'CA',
+                    'country' => 'US',
+                    'telephone' => '123456789'
+                ]
+            ],
+            'items' => [
+                [
+                    'product_id' => 1,
+                    'sku' => 'sku1',
+                    'name' => 'Product Name 1',
+                    'product_name' => 'Product Name 1',
+                    'qty_ordered' => 10,
+                    'quantity' => 10,
+                    'price' => 9.99,
+                    'price_incl_tax' => 9.99
+                ],
+                [
+                    'product_id' => 2,
+                    'sku' => 'sku2',
+                    'name' => 'Product Name 2',
+                    'product_name' => 'Product Name 2',
+                    'qty_ordered' => 5,
+                    'quantity' => 5,
+                    'price' => 5.45,
+                    'price_incl_tax' => 5.45
+                ]
+            ]
+        ];
+
+        return [$data];
     }
 }

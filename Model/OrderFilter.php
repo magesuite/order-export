@@ -23,9 +23,14 @@ class OrderFilter implements \MageSuite\OrderExport\Model\OrderFilterInterface
     {
         $filters = [];
 
+        $orderIds = $filterData['order_ids'] ?? null;
         $status = $filterData['status'] ?? null;
         $dateFrom = $filterData['date_from'] ?? null;
         $dateTo = $filterData['date_to'] ?? null;
+
+        if ($orderIds) {
+            $filters[] = ['field' => 'entity_id', 'value' => $orderIds, 'condition' => 'in'];
+        }
 
         if ($status) {
             $filters[] = ['field' => 'status', 'value' => $status, 'condition' => 'eq'];
