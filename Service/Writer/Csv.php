@@ -4,7 +4,7 @@ namespace MageSuite\OrderExport\Service\Writer;
 
 class Csv extends \MageSuite\OrderExport\Service\Writer\Writer implements \MageSuite\OrderExport\Service\Writer\WriterInterface
 {
-    protected $delimiter = ';';
+    protected $delimiter = ',';
     protected $enclosure = '"';
 
     public function writeHeader()
