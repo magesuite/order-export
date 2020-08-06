@@ -61,6 +61,23 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
 
     public function getAddressFields($address)
     {
+        if (empty($address)) {
+            return [
+                'prefix' => '',
+                'name' => '',
+                'first_name' => '',
+                'last_name' => '',
+                'email' => '',
+                'company' => '',
+                'street' => '',
+                'city' => '',
+                'postcode' => '',
+                'region' => '',
+                'country' => '',
+                'telephone' => ''
+            ];
+        }
+
         return [
             'prefix' => $address->getPrefix(),
             'name' => $address->getFirstname() . ' ' . $address->getLastname(),
@@ -73,7 +90,7 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
             'postcode' => $address->getPostcode(),
             'region' => $address->getRegion(),
             'country' => $address->getCountryId(),
-            'telephone' => $address->getTelephone(),
+            'telephone' => $address->getTelephone()
         ];
     }
 
