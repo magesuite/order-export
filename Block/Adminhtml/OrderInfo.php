@@ -110,11 +110,9 @@ class OrderInfo extends \Magento\Backend\Block\Template
             if (!isset($completedStatuses[$code])) {
                 continue;
             }
-            $definedStatuses[$code]['completed'] = $completedStatuses[$code]['completed'];
-            $definedStatuses[$code]['error'] = $completedStatuses[$code]['error'];
-            if (isset($completedStatuses[$code]['error_message'])) {
-                $definedStatuses[$code]['error_message'] = $completedStatuses[$code]['error_message'];
-            }
+            $definedStatuses[$code]['completed'] = $completedStatuses[$code]['completed'] ?? $definedStatuses[$code]['completed'];
+            $definedStatuses[$code]['error'] = $completedStatuses[$code]['error'] ?? $definedStatuses[$code]['error'];
+            $definedStatuses[$code]['error_message'] = $completedStatuses[$code]['error_message'] ?? $definedStatuses[$code]['error_message'];
         }
 
         usort($definedStatuses, function ($a, $b) {
