@@ -111,7 +111,7 @@
                 </item>
                 <item name="payment_created" xsi:type="array">
                     <item name="status" xsi:type="string">payment_created</item>
-                    <item name="label" xsi:type="string">Order was payed</item>
+                    <item name="label" xsi:type="string">Order was paid</item>
                     <item name="completed" xsi:type="string">0</item>
                     <item name="disabled" xsi:type="string">0</item>
                     <item name="sort_order" xsi:type="string">500</item>
