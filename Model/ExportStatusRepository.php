@@ -3,39 +3,37 @@ namespace MageSuite\OrderExport\Model;
 
 class ExportStatusRepository implements \MageSuite\OrderExport\Api\ExportStatusRepositoryInterface
 {
-    /**
-     * @var ResourceModel\ExportStatus\CollectionFactory
-     */
-    protected $statusCollectionFactory;
+
     /**
      * @var \MageSuite\OrderExport\Api\Data\ExportStatusInterfaceFactory
      */
     protected $exportStatusFactory;
+
+    /**
+     * @var \MageSuite\OrderExport\Model\OrderRepositoryInterface
+     */
+    protected $orderRepository;
+
     /**
      * @var ResourceModel\ExportStatus
      */
     protected $exportStatusResource;
     /**
-     * @var \MageSuite\OrderExport\Model\OrderRepositoryInterface
+     * @var ResourceModel\ExportStatus\CollectionFactory
      */
-    protected $orderRepository;
-    /**
-     * @var \Magento\Framework\Webapi\Rest\Response
-     */
-    protected $apiResponse;
+    protected $statusCollectionFactory;
 
     public function __construct(
-        \MageSuite\OrderExport\Model\ResourceModel\ExportStatus\CollectionFactory $statusCollectionFactory,
         \MageSuite\OrderExport\Api\Data\ExportStatusInterfaceFactory $exportStatusFactory,
-        \MageSuite\OrderExport\Model\ResourceModel\ExportStatus $exportStatusResource,
         \MageSuite\OrderExport\Model\OrderRepositoryInterface $orderRepository,
-        \Magento\Framework\Webapi\Rest\Response $apiResponse
-    ) {
-        $this->statusCollectionFactory = $statusCollectionFactory;
+        \MageSuite\OrderExport\Model\ResourceModel\ExportStatus $exportStatusResource,
+        \MageSuite\OrderExport\Model\ResourceModel\ExportStatus\CollectionFactory $statusCollectionFactory
+    )
+    {
         $this->exportStatusFactory = $exportStatusFactory;
-        $this->exportStatusResource = $exportStatusResource;
         $this->orderRepository = $orderRepository;
-        $this->apiResponse = $apiResponse;
+        $this->exportStatusResource = $exportStatusResource;
+        $this->statusCollectionFactory = $statusCollectionFactory;
     }
 
     public function addStatus($order, $stepData)
@@ -77,7 +75,23 @@ class ExportStatusRepository implements \MageSuite\OrderExport\Api\ExportStatusR
         return $collection->getFirstItem();
     }
 
-    public function addStatusByApi($incrementId, $status)
+    public function addStatusByOrderId($orderId, $status)
+    {
+        $order = $this->orderRepository->getById($orderId);
+
+        if (!$order) {
+            throw new \Magento\Framework\Exception\NoSuchEntityException(__('Order does not exist.'));
+        }
+
+        $status = [
+            'status' => $status,
+            'completed' => 1
+        ];
+
+        return $this->addStatus($order, $status);
+    }
+
+    public function addStatusByIncrementId($incrementId, $status)
     {
         $order = $this->getByIncrementId($incrementId);
 

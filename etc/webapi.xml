@@ -1,9 +1,15 @@
 <?xml version="1.0" ?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route method="POST" url="/V1/orders/:incrementId/export/statuses">
-        <service class="\MageSuite\OrderExport\Api\ExportStatusRepositoryInterface" method="addStatusByApi"/>
+    <route method="POST" url="/V1/orders/order_id/:orderId/export/statuses">
+        <service class="\MageSuite\OrderExport\Api\ExportStatusRepositoryInterface" method="addStatusByOrderId"/>
         <resources>
-            <resource ref="MageSuite_OrderExport::config_orderexport"/>
+            <resource ref="MageSuite_OrderExport::order_status"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/orders/increment_id/:incrementId/export/statuses">
+        <service class="\MageSuite\OrderExport\Api\ExportStatusRepositoryInterface" method="addStatusByIncrementId"/>
+        <resources>
+            <resource ref="MageSuite_OrderExport::order_status"/>
         </resources>
     </route>
 </routes>
