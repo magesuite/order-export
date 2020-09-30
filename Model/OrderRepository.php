@@ -31,6 +31,10 @@ class OrderRepository implements \MageSuite\OrderExport\Model\OrderRepositoryInt
 
     public function getOrdersList($filtersData)
     {
+        if (empty($filtersData)){
+            throw new \InvalidArgumentException('Missing order filter passed to exporter. Processing stopped to avoid incorrect exporting of all orders from the database.');
+        }
+
         foreach ($filtersData as $filterData) {
             if (empty($filterData['field']) || !isset($filterData['value'])) {
                 continue;
