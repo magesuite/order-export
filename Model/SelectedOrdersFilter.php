@@ -11,9 +11,14 @@ class SelectedOrdersFilter implements \MageSuite\OrderExport\Model\OrderFilterIn
         $filters = [];
 
         $orderIds = $filterData['order_ids'] ?? null;
+        $allowedStatuses = $filterData['allowed_statuses'] ?? null;
 
         if ($orderIds) {
             $filters[] = ['field' => 'entity_id', 'value' => $orderIds, 'condition' => 'in'];
+        }
+
+        if ($allowedStatuses) {
+            $filters[] = ['field' => 'status', 'value' => $allowedStatuses, 'condition' => 'in'];
         }
 
         return $filters;

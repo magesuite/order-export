@@ -13,6 +13,11 @@ class MassExport extends \Magento\Backend\App\Action
     protected $messageManager;
 
     /**
+     * @var \MageSuite\OrderExport\Helper\Configuration
+     */
+    protected $configuration;
+
+    /**
      * @var \MageSuite\OrderExport\Service\SelectedOrdersExporterFactory
      */
     protected $selectedOrdersExporterFactory;
@@ -20,22 +25,30 @@ class MassExport extends \Magento\Backend\App\Action
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Message\ManagerInterface $messageManager,
+        \MageSuite\OrderExport\Helper\Configuration $configuration,
         \MageSuite\OrderExport\Service\SelectedOrdersExporterFactory $selectedOrdersExporterFactory
     )
     {
         parent::__construct($context);
 
         $this->messageManager = $messageManager;
+        $this->configuration = $configuration;
         $this->selectedOrdersExporterFactory = $selectedOrdersExporterFactory;
     }
 
     public function execute()
     {
+        if (!$this->configuration->isExportFromOrderGridEnabled()) {
+            $this->messageManager->addNoticeMessage(__('Export from Order Grid is disabled. Please enable it in Stores > Configuration > MageSuite > OrderExport'));
+            return $this->_redirect($this->_redirect->getRefererUrl());
+        }
+
         $postData = $this->_request->getPost();
         $orderIds = $postData['selected'] ?? [];
         $data = [
             'type' => \MageSuite\OrderExport\Helper\Configuration::MANUAL_EXPORT_TYPE,
-            'order_ids' => $orderIds
+            'order_ids' => $orderIds,
+            'allowed_statuses' => $this->configuration->getAllowedOrderStatuses()
         ];
 
         $exporter = $this->selectedOrdersExporterFactory->create(['data' => $data]);

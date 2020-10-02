@@ -84,6 +84,18 @@
                     <depends><field id='is_ftp_upload_enabled'>1</field></depends>
                 </field>
             </group>
+            <group id="order_grid" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Order Grid</label>
+                <field id="is_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable export from Order Grid</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_order_statuses" translate="label" sortOrder="20" type="multiselect" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Statuses allowed to export</label>
+                    <source_model>MageSuite\OrderExport\Model\Config\Source\Order\Status</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
         </section>
     </system>
 </config>

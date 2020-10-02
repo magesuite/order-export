@@ -61,7 +61,6 @@ class Exporter extends \Magento\Framework\DataObject
         $orders = $this->orderRepository->getOrdersList($filters);
 
         if ($orderCount = count($orders)) {
-
             /** @var \MageSuite\OrderExport\Service\Export\ExporterInterface $exporter */
             $exporter = $this->exporterFactory->create();
             $result = $exporter->export($orders);

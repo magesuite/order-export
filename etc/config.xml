@@ -17,6 +17,10 @@
                 <export_date_format>Y-m-d</export_date_format>
                 <upload_path>orderexport</upload_path>
             </periodical>
+            <order_grid>
+                <is_enabled>1</is_enabled>
+                <allowed_order_statuses>processing</allowed_order_statuses>
+            </order_grid>
         </orderexport>
     </default>
 </config>
