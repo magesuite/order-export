@@ -5,6 +5,7 @@ namespace MageSuite\OrderExport\Helper;
 class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const XML_PATH_ORDER_EXPORT_PERIODICAL_CONFIG = 'orderexport/periodical';
+    const XML_PATH_ORDER_EXPORT_ORDER_GRID_CONFIG = 'orderexport/order_grid';
 
     const CRON_EXPORT_TYPE = 'cron';
     const MANUAL_EXPORT_TYPE = 'manual';
@@ -21,11 +22,14 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
 
     protected $periodicalExportConfig = null;
 
+    protected $orderGridConfig = null;
+
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList
-    ) {
+    )
+    {
         parent::__construct($context);
 
         $this->scopeConfig = $scopeConfigInterface;
@@ -112,5 +116,26 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $this->periodicalExportConfig;
+    }
+
+    public function isExportFromOrderGridEnabled()
+    {
+        return (bool)$this->getOrderGridConfig()->getIsEnabled();
+    }
+
+    public function getAllowedOrderStatuses()
+    {
+        return explode(',', $this->getOrderGridConfig()->getAllowedOrderStatuses());
+    }
+
+    protected function getOrderGridConfig()
+    {
+        if ($this->orderGridConfig === null) {
+            $this->orderGridConfig = new \Magento\Framework\DataObject(
+                $this->scopeConfig->getValue(self::XML_PATH_ORDER_EXPORT_ORDER_GRID_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
+            );
+        }
+
+        return $this->orderGridConfig;
     }
 }
