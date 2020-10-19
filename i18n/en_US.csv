@@ -1,0 +1,60 @@
+"Order Export","Order Export"
+Settings,Settings
+"Order status","Order status"
+"Orders Export Logs","Orders Export Logs"
+"Orders Export Log","Orders Export Log"
+"Item does not exist.","Item does not exist."
+"Export from Order Grid is disabled. Please enable it in Stores > Configuration > MageSuite > OrderExport","Export from Order Grid is disabled. Please enable it in Stores > Configuration > MageSuite > OrderExport"
+"Export finished, %1 order(s) were exported.","Export finished, %1 order(s) were exported."
+Separated,Separated
+Grouped,Grouped
+Csv,Csv
+Xml,Xml
+"Export with id ""%1"" does not exist.","Export with id ""%1"" does not exist."
+"Order does not exist.","Order does not exist."
+Show,Show
+"ERP status","ERP status"
+"Download export file","Download export file"
+"Export log","Export log"
+Back,Back
+Id,Id
+Type,Type
+"Used Order Filters","Used Order Filters"
+"Exported filename","Exported filename"
+"Started at","Started at"
+"Finished at","Finished at"
+"Exported orders amount","Exported orders amount"
+"Exported IDs","Exported IDs"
+"Uploaded Files Status","Uploaded Files Status"
+"MageSuite OrderExport - Status","MageSuite OrderExport - Status"
+MageSuite,MageSuite
+OrderExport,OrderExport
+"Periodical export","Periodical export"
+"Enable export by cron","Enable export by cron"
+"Cron Schedule","Cron Schedule"
+"Log all exports","Log all exports"
+"Change status after export","Change status after export"
+"New status","New status"
+"Export strategy","Export strategy"
+"Export File Type","Export File Type"
+"Export Filename","Export Filename"
+"Export Date Format","Export Date Format"
+"Upload Path","Upload Path"
+"Upload to FTP","Upload to FTP"
+Host,Host
+"Use SSL","Use SSL"
+Passive,Passive
+Login,Login
+Password,Password
+"Remote path","Remote path"
+"Order Grid","Order Grid"
+"Enable export from Order Grid","Enable export from Order Grid"
+"Order Statuses allowed to export","Order Statuses allowed to export"
+ID,ID
+"Exported Filename","Exported Filename"
+"Exported Orders Amount","Exported Orders Amount"
+"Started At","Started At"
+"Finished At","Finished At"
+"Do you want to export selected orders?","Do you want to export selected orders?"
+"Export orders","Export orders"
+Exported,Exported
