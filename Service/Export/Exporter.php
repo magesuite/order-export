@@ -42,8 +42,8 @@ class Exporter
         return $this->orderConverter->convert($order);
     }
 
-    protected function getFilePath($filename)
+    protected function getFilePath($filename, $storeId = null)
     {
-        return sprintf('%s/%s', $this->configuration->getUploadPath(), $filename);
+        return sprintf('%s/%s', $this->configuration->getUploadPath($storeId), $filename);
     }
 }

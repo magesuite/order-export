@@ -13,7 +13,7 @@ class Separated extends \MageSuite\OrderExport\Service\Export\Exporter implement
             $order = $this->convertOrder($order);
 
             $filename = $this->fileNameGenerator->getFileName($order['increment_id'], null, $order['order']['entity_id']);
-            $filePath = $this->getFilePath($filename);
+            $filePath = $this->getFilePath($filename, $order['order']['store_id']);
 
             $writer->openFile($filePath);
             $writer->write([$order]);
