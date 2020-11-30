@@ -9,7 +9,7 @@ class CsvTest extends \PHPUnit\Framework\TestCase
      */
     protected $writer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->writer = new \MageSuite\OrderExport\Service\Writer\Csv();
     }
@@ -28,7 +28,7 @@ class CsvTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedResult, $writeResult);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         if (!file_exists(__DIR__ . '/write_test.csv')) {
             return;

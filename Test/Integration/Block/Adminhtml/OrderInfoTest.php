@@ -23,7 +23,7 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
      */
     protected $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
         $this->orderCollection = $this->objectManager->create(\Magento\Sales\Model\ResourceModel\Order\Collection::class);

@@ -9,7 +9,7 @@ class XmlTest extends \PHPUnit\Framework\TestCase
      */
     protected $writer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
@@ -32,7 +32,7 @@ class XmlTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedWrite->asXML(), $writeResult->asXML());
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         if (!file_exists(__DIR__ . '/write_test.xml')) {
             return;

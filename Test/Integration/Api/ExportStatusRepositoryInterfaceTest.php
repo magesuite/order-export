@@ -19,7 +19,7 @@ class ExportStatusRepositoryInterfaceTest extends \PHPUnit\Framework\TestCase
      */
     protected $orderCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
         $this->exportStatusRepository = $this->objectManager->create(\MageSuite\OrderExport\Api\ExportStatusRepositoryInterface::class);
