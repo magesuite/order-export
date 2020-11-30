@@ -71,19 +71,19 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->getPeriodicalExportConfig()->getExportFileType();
     }
 
-    public function getExportFilename()
+    public function getExportFilename($storeId = null)
     {
-        return $this->getPeriodicalExportConfig()->getExportFilename();
+        return $this->getPeriodicalExportConfig($storeId)->getExportFilename();
     }
 
-    public function getExportDateFormat()
+    public function getExportDateFormat($storeId = null)
     {
-        return $this->getPeriodicalExportConfig()->getExportDateFormat();
+        return $this->getPeriodicalExportConfig($storeId)->getExportDateFormat();
     }
 
-    public function getUploadPath()
+    public function getUploadPath($storeId = null)
     {
-        $uploadPath = $this->getPeriodicalExportConfig()->getUploadPath();
+        $uploadPath = $this->getPeriodicalExportConfig($storeId)->getUploadPath();
 
         return rtrim(sprintf('%s/%s', $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR), $uploadPath), '/');
     }
@@ -107,15 +107,16 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         ]);
     }
 
-    protected function getPeriodicalExportConfig()
+    protected function getPeriodicalExportConfig($storeId = null)
     {
-        if ($this->periodicalExportConfig === null) {
-            $this->periodicalExportConfig = new \Magento\Framework\DataObject(
-                $this->scopeConfig->getValue(self::XML_PATH_ORDER_EXPORT_PERIODICAL_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
-            );
+        $key = $storeId ?? 'default';
+
+        if (!isset($this->periodicalExportConfig[$key])) {
+            $config = $this->scopeConfig->getValue(self::XML_PATH_ORDER_EXPORT_PERIODICAL_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
+            $this->periodicalExportConfig[$key] = new \Magento\Framework\DataObject($config);
         }
 
-        return $this->periodicalExportConfig;
+        return $this->periodicalExportConfig[$key];
     }
 
     public function isExportFromOrderGridEnabled()
@@ -128,14 +129,15 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         return explode(',', $this->getOrderGridConfig()->getAllowedOrderStatuses());
     }
 
-    protected function getOrderGridConfig()
+    protected function getOrderGridConfig($storeId = null)
     {
-        if ($this->orderGridConfig === null) {
-            $this->orderGridConfig = new \Magento\Framework\DataObject(
-                $this->scopeConfig->getValue(self::XML_PATH_ORDER_EXPORT_ORDER_GRID_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
-            );
+        $key = $storeId ?? 'default';
+
+        if (!isset($this->orderGridConfig[$key])) {
+            $config = $this->scopeConfig->getValue(self::XML_PATH_ORDER_EXPORT_ORDER_GRID_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
+            $this->orderGridConfig = new \Magento\Framework\DataObject($config);
         }
 
-        return $this->orderGridConfig;
+        return $this->orderGridConfig[$key];
     }
 }
