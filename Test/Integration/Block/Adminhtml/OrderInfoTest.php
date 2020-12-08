@@ -19,6 +19,11 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
     protected $orderInfoBlock;
 
     /**
+     * @var \MageSuite\OrderExport\Model\Config\StatusesList
+     */
+    protected $statusesList;
+
+    /**
      * @var \Magento\Framework\Registry
      */
     protected $registry;
@@ -28,6 +33,7 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
         $this->orderCollection = $this->objectManager->create(\Magento\Sales\Model\ResourceModel\Order\Collection::class);
         $this->orderInfoBlock = $this->objectManager->create(\MageSuite\OrderExport\Block\Adminhtml\OrderInfo::class);
+        $this->statusesList = $this->objectManager->create(\MageSuite\OrderExport\Model\Config\StatusesList::class);
         $this->registry = $this->objectManager->get(\Magento\Framework\Registry::class);
     }
 
@@ -101,8 +107,8 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
         $this->registry->register('sales_order', $order);
 
         $statuses = $this->orderInfoBlock->getMatchedStatuses();
-
         $expectedStatuses = $this->getMatchingStatuses();
+        
         foreach ($statuses as $status) {
             $this->assertTrue(in_array($status['status'], $expectedStatuses));
         }
@@ -145,15 +151,8 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
 
     protected function getMatchingStatuses()
     {
-        return [
-            'ready_to_generate',
-            'file_generated',
-            'file_exported',
-            'file_processed_by_erp',
-            'payment_created',
-            'order_shipped',
-            'order_completed'
-        ];
+        $statuses = $this->statusesList->getStatuses();
+        return array_column($statuses,'status');
     }
 
     public static function loadOrders()
