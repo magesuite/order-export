@@ -124,7 +124,7 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
 
         $exportUrl = $this->orderInfoBlock->getExportLogUrl();
 
-        $this->assertStringStartsWith('http://localhost/index.php/backend/orderexport/export/show/id/', $exportUrl);
+        $this->assertStringStartsWith('http://localhost/index.php/backend/orderexport/exportlog/show/export_id/', $exportUrl);
 
         $this->registry->unregister('sales_order');
     }

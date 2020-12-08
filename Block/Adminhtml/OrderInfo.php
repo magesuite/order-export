@@ -196,7 +196,7 @@ class OrderInfo extends \Magento\Backend\Block\Template
 
         $log = array_shift($exportLogs);
 
-        return $this->urlBuilder->getUrl('orderexport/export/show', ['id' => $log->getExportId()]);
+        return $this->urlBuilder->getUrl('orderexport/exportlog/show', ['export_id' => $log->getExportId()]);
     }
 
     public function isAllowed()
