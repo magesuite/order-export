@@ -1,16 +1,21 @@
 <?php
+
 namespace MageSuite\OrderExport\Controller\Adminhtml\Index;
 
-class Preview extends \Magento\Backend\App\Action
+class Preview extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
+    const ADMIN_RESOURCE = 'MageSuite_OrderExport::config_orderexport';
+
     /**
      * @var \Magento\Framework\Controller\Result\RawFactory
      */
     protected $resultRawFactory;
+
     /**
      * @var \Magento\Framework\App\Response\Http\FileFactory
      */
     protected $fileFactory;
+
     /**
      * @var \Psr\Log\LoggerInterface
      */
@@ -28,9 +33,6 @@ class Preview extends \Magento\Backend\App\Action
         $this->logger = $logger;
     }
 
-    /**
-     * @return \Magento\Framework\Controller\Result\Raw
-     */
     public function execute()
     {
         try {
@@ -41,7 +43,7 @@ class Preview extends \Magento\Backend\App\Action
                     'type' => 'filename',
                     'value' => 'orderexport/' . $fileName
                 ],
-                \Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR, //basedir
+                \Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR,
                 'application/octet-stream',
                 ''
             );
@@ -50,5 +52,6 @@ class Preview extends \Magento\Backend\App\Action
         }
 
         return $this->resultRawFactory->create();
+
     }
 }

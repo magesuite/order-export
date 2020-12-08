@@ -43,20 +43,22 @@
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
-                <div class="erp__buttons-container">
-                    <div class="erp__buttons-section">
-                        <?php if ($downloadUrl) : ?>
-                            <button id="download_file" title="<?= /* @escapeNotVerified */ __('Download export file'); ?>" type="button" class="action-default scalable action-save action-secondary erp__download-exp-file-button" onclick="setLocation('<?= $downloadUrl; ?>');" data-ui-id="widget-button-0">
-                                <span><?= /* @escapeNotVerified */ __('Download export file'); ?></span>
-                            </button>
-                        <?php endif; ?>
-                        <?php if ($exportLogUrl) : ?>
-                            <button id="export_log" title="<?= /* @escapeNotVerified */ __('Export log'); ?>" type="button" class="action-default scalable action-save action-secondary erp__export-log-button" onclick="window.open('<?= $exportLogUrl; ?>');" data-ui-id="widget-button-0">
-                                <span><?= /* @escapeNotVerified */ __('Export log'); ?></span>
-                            </button>
-                        <?php endif; ?>
+                <?php if ($downloadUrl || $exportLogUrl): ?>
+                    <div class="erp__buttons-container">
+                        <div class="erp__buttons-section">
+                            <?php if ($downloadUrl) : ?>
+                                <button id="download_file" title="<?= /* @escapeNotVerified */ __('Download export file'); ?>" type="button" class="action-default scalable action-save action-secondary erp__download-exp-file-button" onclick="setLocation('<?= $downloadUrl; ?>');" data-ui-id="widget-button-0">
+                                    <span><?= /* @escapeNotVerified */ __('Download export file'); ?></span>
+                                </button>
+                            <?php endif; ?>
+                            <?php if ($exportLogUrl) : ?>
+                                <button id="export_log" title="<?= /* @escapeNotVerified */ __('Export log'); ?>" type="button" class="action-default scalable action-save action-secondary erp__export-log-button" onclick="window.open('<?= $exportLogUrl; ?>');" data-ui-id="widget-button-0">
+                                    <span><?= /* @escapeNotVerified */ __('Export log'); ?></span>
+                                </button>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
