@@ -106,6 +106,10 @@ class Exporter extends \Magento\Framework\DataObject
 
     protected function getExportFileName($result, $orderCount)
     {
+        if (empty($result['generatedFiles'])) {
+            return null;
+        }
+
         if ($this->configuration->getExportStrategy() == \MageSuite\OrderExport\Model\Config\Source\Export\Strategy::EXPORT_STRATEGY_GROUPED || $orderCount == 1) {
             $fileName = $result['generatedFiles'][0]['fileName'];
         } else {
