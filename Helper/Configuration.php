@@ -135,7 +135,7 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
 
         if (!isset($this->orderGridConfig[$key])) {
             $config = $this->scopeConfig->getValue(self::XML_PATH_ORDER_EXPORT_ORDER_GRID_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
-            $this->orderGridConfig = new \Magento\Framework\DataObject($config);
+            $this->orderGridConfig[$key] = new \Magento\Framework\DataObject($config);
         }
 
         return $this->orderGridConfig[$key];
