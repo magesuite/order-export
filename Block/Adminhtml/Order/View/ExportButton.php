@@ -13,7 +13,7 @@ class ExportButton extends \Magento\Sales\Block\Adminhtml\Order\View
     public function __construct(
         \Magento\Backend\Block\Widget\Context $context,
         \Magento\Framework\Registry $registry,
-        \Magento\Sales\Model\ConfigInterface $salesConfig,
+        \Magento\Sales\Model\Config $salesConfig,
         \Magento\Sales\Helper\Reorder $reorderHelper,
         \MageSuite\OrderExport\Helper\Configuration $configuration,
         array $data = []
