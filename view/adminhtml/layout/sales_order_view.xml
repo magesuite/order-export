@@ -3,4 +3,9 @@
     <referenceContainer name="order_additional_info">
         <block class="MageSuite\OrderExport\Block\Adminhtml\OrderInfo" name="magesuite_erp_block_tester" template="MageSuite_OrderExport::orderinfo.phtml" />
     </referenceContainer>
+    <referenceBlock name="sales_order_edit">
+        <block class="MageSuite\OrderExport\Block\Adminhtml\Order\View\ExportButton" name="order_export_button">
+            <action method="addExportButton"/>
+        </block>
+    </referenceBlock>
 </page>
