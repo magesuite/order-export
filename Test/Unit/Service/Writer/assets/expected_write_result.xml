@@ -52,6 +52,7 @@
       <ProductName>Product Name 1</ProductName>
       <Quantity>10</Quantity>
       <PricePerItem>9.99</PricePerItem>
+      <TaxPerItem>19</TaxPerItem>
     </Item>
     <Item>
       <PosNo>2</PosNo>
@@ -60,7 +61,7 @@
       <MagentoProductSku>sku2</MagentoProductSku>
       <ProductName>Product Name 2</ProductName>
       <Quantity>5</Quantity>
-      <PricePerItem>5.45</PricePerItem>
+      <TaxPerItem>19</TaxPerItem>
     </Item>
   </Cart>
 </Order>

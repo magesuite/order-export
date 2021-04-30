@@ -84,6 +84,7 @@ class XmlTest extends \PHPUnit\Framework\TestCase
             ],
             'items' => [
                 [
+                    'erp_product_id' => 1,
                     'product_id' => 1,
                     'sku' => 'sku1',
                     'name' => 'Product Name 1',
@@ -91,9 +92,11 @@ class XmlTest extends \PHPUnit\Framework\TestCase
                     'qty_ordered' => 10,
                     'quantity' => 10,
                     'price' => 9.99,
-                    'price_incl_tax' => 9.99
+                    'price_incl_tax' => 9.99,
+                    'tax_percent' => 19
                 ],
                 [
+                    'erp_product_id' => 2,
                     'product_id' => 2,
                     'sku' => 'sku2',
                     'name' => 'Product Name 2',
@@ -101,7 +104,8 @@ class XmlTest extends \PHPUnit\Framework\TestCase
                     'qty_ordered' => 5,
                     'quantity' => 5,
                     'price' => 5.45,
-                    'price_incl_tax' => 5.45
+                    'price_incl_tax' => 5.45,
+                    'tax_percent' => 19
                 ]
             ]
         ];

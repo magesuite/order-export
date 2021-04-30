@@ -23,7 +23,8 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
         \Magento\Shipping\Model\Config\Source\Allmethods $shippingMethods,
         \MageSuite\OrderExport\Service\Converter\OrderItemInterface $orderItemConverter,
         \MageSuite\OrderExport\Service\Converter\OrderAdditionalFieldsInterface $orderAdditionalFields
-    ) {
+    )
+    {
         $this->shippingMethods = $shippingMethods;
         $this->orderItemConverter = $orderItemConverter;
         $this->orderAdditionalFields = $orderAdditionalFields;
@@ -48,7 +49,13 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
         $this->addAdditionalFieldsToOrder($result['order'], $order);
 
         foreach ($order->getAllItems() as $item) {
-            $result['items'][$item->getSku()] = $this->orderItemConverter->convert($item, $result['order']);
+            $convertedItem = $this->orderItemConverter->convert($item, $result['order']);
+            if (empty($convertedItem)) {
+                continue;
+            }
+            
+            $result['items'][$item->getItemId()] = $convertedItem;
+
         }
 
         return $result;

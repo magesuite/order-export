@@ -16,8 +16,14 @@ class OrderItem implements \MageSuite\OrderExport\Service\Converter\OrderItemInt
 
     public function convert(\Magento\Sales\Api\Data\OrderItemInterface $orderItem, $order): array
     {
+        $parentItem = $orderItem->getParentItem();
+        if ($parentItem && $parentItem->getProductType() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
+            return [];
+        }
+
         $result = $orderItem->toArray();
 
+        $result['erp_product_id'] = $orderItem->getProductId();
         $result['product_name'] = $orderItem->getName();
         $result['quantity'] = (float)$orderItem->getQtyOrdered();
 
