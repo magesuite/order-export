@@ -30,12 +30,13 @@ class CartNode implements \MageSuite\OrderExport\Service\Writer\XmlNodeProcessor
     {
         return [
             'PosNo' => $position,
-            'ErpProductNo' => $item['product_id'],
+            'ErpProductNo' => $item['erp_product_id'],
             'MagentoProductNo' => $item['product_id'],
             'MagentoProductSku' => $item['sku'],
             'ProductName' => $item['product_name'],
             'Quantity' => $item['quantity'],
-            'PricePerItem' => $item['price']
+            'PricePerItem' => $item['price'],
+            'TaxPerItem' => $item['tax_percent']
         ];
     }
 }
