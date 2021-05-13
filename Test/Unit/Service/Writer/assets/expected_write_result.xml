@@ -61,6 +61,7 @@
       <MagentoProductSku>sku2</MagentoProductSku>
       <ProductName>Product Name 2</ProductName>
       <Quantity>5</Quantity>
+      <PricePerItem>5.45</PricePerItem>
       <TaxPerItem>19</TaxPerItem>
     </Item>
   </Cart>
