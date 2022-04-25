@@ -33,7 +33,7 @@
         </settings>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
-        <filterSearch name="name"/>
+        <filterSearch name="exported_filename"/>
         <filters name="listing_filters">
             <settings>
                 <templates>
