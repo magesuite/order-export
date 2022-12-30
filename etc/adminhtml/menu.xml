@@ -10,7 +10,16 @@
         <add id="MageSuite_OrderExport::order_export_log" title="Orders Export Log" translate="title"
              module="MageSuite_OrderExport"
              sortOrder="55" parent="Magento_Backend::system_convert" action="orderexport/exportlog/index"
-             resource="Magento_ImportExport::history"/>
-
+             resource="Magento_ImportExport::order_export_log"/>
+        <add
+            id="MageSuite_ErpConnectorSubmenu::order_export_log"
+            title="Orders Export Log"
+            translate="title"
+            module="MageSuite_OrderExport"
+            sortOrder="60"
+            parent="MageSuite_ErpConnectorSubmenu::submenu"
+            action="orderexport/export/grid"
+            resource="Magento_ImportExport::order_export_log"
+        />
     </menu>
 </config>
