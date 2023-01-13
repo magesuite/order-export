@@ -6,7 +6,7 @@
     "OSL-3.0"
   ],
   "require": {
-    "nicolab/php-ftp-client": "1.4.*",
+    "nicolab/php-ftp-client": "^2.0.0",
     "creativestyle/magesuite-erp-connector-submenu": "^1.0.0"
   },
   "autoload": {
