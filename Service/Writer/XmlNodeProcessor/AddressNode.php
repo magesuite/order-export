@@ -18,7 +18,7 @@ class AddressNode implements \MageSuite\OrderExport\Service\Writer\XmlNodeProces
 
             foreach ($this->getAddressFieldsMap($order, $addressGroup['type']) as $name => $value) {
                 $element = $xml->createElement($name);
-                $element->appendChild($xml->createTextNode($value));
+                $element->appendChild($xml->createTextNode($value ?: ''));
                 $node->appendChild($element);
             }
 
