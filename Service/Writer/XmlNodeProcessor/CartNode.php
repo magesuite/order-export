@@ -15,7 +15,7 @@ class CartNode implements \MageSuite\OrderExport\Service\Writer\XmlNodeProcessor
 
             foreach ($this->getItemFieldsMap($position, $item) as $name => $value) {
                 $element = $xml->createElement($name);
-                $element->appendChild($xml->createTextNode($value));
+                $element->appendChild($xml->createTextNode($value ?: ''));
                 $itemNode->appendChild($element);
             }
 
