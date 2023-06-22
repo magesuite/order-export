@@ -4,10 +4,7 @@ namespace MageSuite\OrderExport\Service;
 
 class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGeneratorInterface
 {
-    /**
-     * @var \MageSuite\OrderExport\Helper\Configuration
-     */
-    protected $configuration;
+    protected \MageSuite\OrderExport\Helper\Configuration $configuration;
 
     public function __construct(\MageSuite\OrderExport\Helper\Configuration $configuration)
     {
@@ -23,7 +20,7 @@ class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGenera
                 $filename = $this->getGroupedFilename();
                 break;
             case 'separated':
-                $filename = $this->getSeparatedFilename($incrementId, $entityId);
+                $filename = $this->getSeparatedFilename((string)$incrementId, (string)$entityId);
                 break;
             default:
                 $filename = 'order_export';
@@ -33,7 +30,7 @@ class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGenera
         return $this->addFileExtension($filename);
     }
 
-    protected function getGroupedFilename()
+    protected function getGroupedFilename(): string
     {
         $filename = str_replace('%entity_id%', 'entity_id', $this->configuration->getExportFilename());
         $filename = str_replace('%increment_id%', 'increment_id', $filename);
@@ -42,7 +39,7 @@ class FileNameGenerator implements \MageSuite\OrderExport\Service\FileNameGenera
         return $filename;
     }
 
-    protected function getSeparatedFilename($incrementId, $entityId)
+    protected function getSeparatedFilename(string $incrementId, string $entityId): string
     {
         $filename = str_replace('%entity_id%', $entityId, $this->configuration->getExportFilename());
         $filename = str_replace('%increment_id%', $incrementId, $filename);
