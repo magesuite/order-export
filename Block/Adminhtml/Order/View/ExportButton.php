@@ -29,7 +29,7 @@ class ExportButton extends \Magento\Sales\Block\Adminhtml\Order\View
         if (!$this->configuration->isExportFromOrderGridEnabled()) {
             return $this;
         }
-        
+
         $buttonUrl = $this->_urlBuilder->getUrl(
             'orderexport/order/export',
             ['order_id' => $this->getParentBlock()->getOrderId()]

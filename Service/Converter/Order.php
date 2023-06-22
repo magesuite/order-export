@@ -53,7 +53,7 @@ class Order implements \MageSuite\OrderExport\Service\Converter\OrderInterface
             if (empty($convertedItem)) {
                 continue;
             }
-            
+
             $result['items'][$item->getItemId()] = $convertedItem;
 
         }

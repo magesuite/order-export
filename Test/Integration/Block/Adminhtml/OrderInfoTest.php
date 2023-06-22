@@ -108,7 +108,7 @@ class OrderInfoTest extends \PHPUnit\Framework\TestCase
 
         $statuses = $this->orderInfoBlock->getMatchedStatuses();
         $expectedStatuses = $this->getMatchingStatuses();
-        
+
         foreach ($statuses as $status) {
             $this->assertTrue(in_array($status['status'], $expectedStatuses));
         }
