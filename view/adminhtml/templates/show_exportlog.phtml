@@ -51,6 +51,6 @@ $exportLog = $block->getExportLog();
     </tr>
     <tr>
         <th><?=__('Uploaded Files Status')?></th>
-        <td><?= nl2br($exportLog->getUploadedFilesStatus()) ?></td>
+        <td><?= nl2br((string) $exportLog->getUploadedFilesStatus()) ?></td>
     </tr>
 </table>
