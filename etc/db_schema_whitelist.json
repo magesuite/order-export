@@ -27,6 +27,9 @@
         },
         "constraint": {
             "PRIMARY": true
+        },
+        "index": {
+            "ORDER_EXPORT_STATUS_ORDER_ID": true
         }
     }
 }

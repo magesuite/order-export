@@ -22,5 +22,8 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
+        <index referenceId="ORDER_EXPORT_STATUS_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
     </table>
 </schema>
