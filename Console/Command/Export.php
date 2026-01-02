@@ -63,7 +63,7 @@ class Export extends \Symfony\Component\Console\Command\Command
             ->setDescription('Manual run order export');
     }
 
-    protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output): int
     {
         $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
 
@@ -80,5 +80,7 @@ class Export extends \Symfony\Component\Console\Command\Command
 
         $exporter = $this->exporterFactory->create(['data' => $data]);
         $exporter->execute();
+
+        return \Magento\Framework\Console\Cli::RETURN_SUCCESS;
     }
 }

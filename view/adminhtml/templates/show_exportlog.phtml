@@ -53,4 +53,12 @@ $exportLog = $block->getExportLog();
         <th><?=__('Uploaded Files Status')?></th>
         <td><?= nl2br((string) $exportLog->getUploadedFilesStatus()) ?></td>
     </tr>
+    <tr>
+        <th><?=__('Result type')?></th>
+        <td><?= nl2br((string) $exportLog->getResultType()) ?></td>
+    </tr>
+    <tr>
+        <th><?=__('Errors')?></th>
+        <td><?= nl2br((string) $exportLog->getErrors()) ?></td>
+    </tr>
 </table>

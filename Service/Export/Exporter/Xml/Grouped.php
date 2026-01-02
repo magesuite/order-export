@@ -8,8 +8,14 @@ class Grouped extends \MageSuite\OrderExport\Service\Export\Exporter implements 
         $writer = $this->writerFactory->create();
 
         $convertedOrders = [];
+        $errors = [];
+
         foreach ($orders as $orderId => $order) {
-            $convertedOrders[$orderId] = $this->convertOrder($order);
+            try {
+                $convertedOrders[$orderId] = $this->convertOrder($order);
+            } catch (\Exception $e) {
+                $errors[] = $e->getMessage();
+            }
         }
 
         $filename = $this->fileNameGenerator->getFileName();
@@ -23,6 +29,7 @@ class Grouped extends \MageSuite\OrderExport\Service\Export\Exporter implements 
             'exportedCount' => count($convertedOrders),
             'exportedIds' => array_column($convertedOrders, 'increment_id'),
             'fileName' => $filename,
+            'errors' => $errors,
             'generatedFiles' => [
                 'fileName' => $filename,
                 'filePath' => $filePath
