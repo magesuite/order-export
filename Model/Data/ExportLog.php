@@ -97,4 +97,24 @@ class ExportLog extends \Magento\Framework\Model\AbstractModel implements \MageS
     {
         return $this->getData('uploaded_files_status');
     }
+
+    public function setResultType($resultType)
+    {
+        return $this->setData('result_type', $resultType);
+    }
+
+    public function getResultType()
+    {
+        return $this->getData('result_type');
+    }
+
+    public function setErrors($errors)
+    {
+        return $this->setData('errors', $errors);
+    }
+
+    public function getErrors()
+    {
+        return $this->getData('errors');
+    }
 }

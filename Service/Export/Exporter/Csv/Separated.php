@@ -7,10 +7,14 @@ class Separated extends \MageSuite\OrderExport\Service\Export\Exporter implement
     {
         $writer = $this->writerFactory->create();
 
-        $exportResult = ['exportedCount' => 0, 'exportedIds' => [], 'generatedFiles' => []];
+        $exportResult = ['exportedCount' => 0, 'exportedIds' => [], 'generatedFiles' => [], 'errors' => []];
 
         foreach ($orders as $order) {
-            $order = $this->convertOrder($order);
+            try {
+                $order = $this->convertOrder($order);
+            } catch (\Exception $e) {
+                $exportResult['errors'][] = $e->getMessage();
+            }
 
             $filename = $this->fileNameGenerator->getFileName($order['increment_id'], null, $order['order']['entity_id']);
             $filePath = $this->getFilePath($filename, $order['order']['store_id']);

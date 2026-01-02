@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace MageSuite\OrderExport\Api\Data;
 
 interface ExportLogInterface
@@ -101,4 +104,26 @@ interface ExportLogInterface
      * @return string|null
      */
     public function getUploadedFilesStatus();
+
+    /**
+     * @param string $resultType
+     * @return $this
+     */
+    public function setResultType($resultType);
+
+    /**
+     * @return ?string
+     */
+    public function getResultType();
+
+    /**
+     * @param string $errors
+     * @return $this
+     */
+    public function setErrors($errors);
+
+    /**
+     * @return ?string
+     */
+    public function getErrors();
 }
