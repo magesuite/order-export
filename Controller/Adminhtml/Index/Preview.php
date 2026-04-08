@@ -1,43 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\OrderExport\Controller\Adminhtml\Index;
 
 class Preview extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
-    const ADMIN_RESOURCE = 'MageSuite_OrderExport::config_orderexport';
-
-    /**
-     * @var \Magento\Framework\Controller\Result\RawFactory
-     */
-    protected $resultRawFactory;
-
-    /**
-     * @var \Magento\Framework\App\Response\Http\FileFactory
-     */
-    protected $fileFactory;
-
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    protected $logger;
+    public const ADMIN_RESOURCE = 'MageSuite_OrderExport::config_orderexport';
 
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Controller\Result\RawFactory $resultRawFactory,
-        \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
-        \Psr\Log\LoggerInterface $logger
+        protected \Magento\Framework\Controller\Result\RawFactory $resultRawFactory,
+        protected \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
+        protected \Psr\Log\LoggerInterface $logger
     ) {
         parent::__construct($context);
-        $this->resultRawFactory = $resultRawFactory;
-        $this->fileFactory = $fileFactory;
-        $this->logger = $logger;
     }
 
-    public function execute()
+    public function execute(): \Magento\Framework\App\ResponseInterface
     {
         try {
-            $fileName = $this->getRequest()->getParam('file_name');
-            $this->fileFactory->create(
+            $fileName = (string)$this->getRequest()->getParam('file_name');
+            // phpcs:ignore Magento2.Functions.DiscouragedFunction
+            $fileName = basename($fileName);
+
+            if (empty($fileName)) {
+                throw new \Magento\Framework\Exception\LocalizedException(
+                    __('Invalid file name.')
+                );
+            }
+
+            return $this->fileFactory->create(
                 $fileName,
                 [
                     'type' => 'filename',
@@ -47,11 +40,13 @@ class Preview extends \Magento\Backend\App\Action implements \Magento\Framework\
                 'application/octet-stream',
                 ''
             );
+        } catch (\Magento\Framework\Exception\LocalizedException $e) {
+            $this->messageManager->addErrorMessage($e->getMessage());
+            return $this->resultRedirectFactory->create()->setPath('*/*/');
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
+            $this->messageManager->addErrorMessage(__('Unable to preview the file.'));
+            return $this->resultRedirectFactory->create()->setPath('*/*/');
         }
-
-        return $this->resultRawFactory->create();
-
     }
 }
