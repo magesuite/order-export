@@ -1,99 +1,83 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\OrderExport\Helper;
 
-class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
+class Configuration
 {
-    const XML_PATH_ORDER_EXPORT_PERIODICAL_CONFIG = 'orderexport/periodical';
-    const XML_PATH_ORDER_EXPORT_ORDER_GRID_CONFIG = 'orderexport/order_grid';
+    public const XML_PATH_ORDER_EXPORT_PERIODICAL_CONFIG = 'orderexport/periodical';
+    public const XML_PATH_ORDER_EXPORT_ORDER_GRID_CONFIG = 'orderexport/order_grid';
 
-    const CRON_EXPORT_TYPE = 'cron';
-    const MANUAL_EXPORT_TYPE = 'manual';
+    public const CRON_EXPORT_TYPE = 'cron';
+    public const MANUAL_EXPORT_TYPE = 'manual';
 
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    protected $scopeConfig;
-
-    /**
-     * @var \Magento\Framework\App\Filesystem\DirectoryList
-     */
-    protected $directoryList;
-
-    protected $periodicalExportConfig = null;
-
-    protected $orderGridConfig = null;
+    protected ?array $periodicalExportConfig = null;
+    protected ?array $orderGridConfig = null;
 
     public function __construct(
-        \Magento\Framework\App\Helper\Context $context,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface,
-        \Magento\Framework\App\Filesystem\DirectoryList $directoryList
-    )
-    {
-        parent::__construct($context);
+        protected \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        protected \Magento\Framework\App\Filesystem\DirectoryList $directoryList
+    ) {}
 
-        $this->scopeConfig = $scopeConfigInterface;
-        $this->directoryList = $directoryList;
-    }
-
-    public function isPeriodicalExportEnabled()
+    public function isPeriodicalExportEnabled(): bool
     {
         return (bool)$this->getPeriodicalExportConfig()->getIsEnabled();
     }
 
-    public function logAllExports()
+    public function logAllExports(): bool
     {
         return (bool)$this->getPeriodicalExportConfig()->getLogAllExports();
     }
 
-    public function shouldChangeStatusAfterExport()
+    public function shouldChangeStatusAfterExport(): bool
     {
         return (bool)$this->getPeriodicalExportConfig()->getChangeStatusAfterExport();
     }
 
-    public function getStatusAfterExport()
+    public function getStatusAfterExport(): string
     {
         return $this->getPeriodicalExportConfig()->getStatusAfterExport();
     }
 
-    public function shouldExportOrdersDaily()
+    public function shouldExportOrdersDaily(): bool
     {
         return (bool)$this->getPeriodicalExportConfig()->getExportOrdersDaily();
     }
 
-    public function getExportStrategy()
+    public function getExportStrategy(): string
     {
         return $this->getPeriodicalExportConfig()->getExportStrategy();
     }
 
-    public function getExportFileType()
+    public function getExportFileType(): string
     {
         return $this->getPeriodicalExportConfig()->getExportFileType();
     }
 
-    public function getExportFilename($storeId = null)
+    public function getExportFilename(?int $storeId = null): string
     {
         return $this->getPeriodicalExportConfig($storeId)->getExportFilename();
     }
 
-    public function getExportDateFormat($storeId = null)
+    public function getExportDateFormat(?int $storeId = null): string
     {
         return $this->getPeriodicalExportConfig($storeId)->getExportDateFormat();
     }
 
-    public function getUploadPath($storeId = null)
+    public function getUploadPath(?int $storeId = null): string
     {
         $uploadPath = $this->getPeriodicalExportConfig($storeId)->getUploadPath();
 
         return rtrim(sprintf('%s/%s', $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::VAR_DIR), $uploadPath), '/');
     }
 
-    public function isFtpUploadEnabled()
+    public function isFtpUploadEnabled(): bool
     {
         return (bool)$this->getPeriodicalExportConfig()->getIsFtpUploadEnabled();
     }
 
-    public function getFtpConfig()
+    public function getFtpConfig(): \Magento\Framework\DataObject
     {
         $config = $this->getPeriodicalExportConfig();
 
@@ -107,7 +91,7 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         ]);
     }
 
-    protected function getPeriodicalExportConfig($storeId = null)
+    protected function getPeriodicalExportConfig(?int $storeId = null): \Magento\Framework\DataObject
     {
         $key = $storeId ?? 'default';
 
@@ -119,17 +103,17 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->periodicalExportConfig[$key];
     }
 
-    public function isExportFromOrderGridEnabled()
+    public function isExportFromOrderGridEnabled(): bool
     {
         return (bool)$this->getOrderGridConfig()->getIsEnabled();
     }
 
-    public function getAllowedOrderStatuses()
+    public function getAllowedOrderStatuses(): array
     {
         return explode(',', $this->getOrderGridConfig()->getAllowedOrderStatuses());
     }
 
-    protected function getOrderGridConfig($storeId = null)
+    protected function getOrderGridConfig(?int $storeId = null): \Magento\Framework\DataObject
     {
         $key = $storeId ?? 'default';
 
