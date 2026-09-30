@@ -65,7 +65,7 @@ class ExportLogRepository implements \MageSuite\OrderExport\Api\ExportLogReposit
         return $export;
     }
 
-    public function getById($id)
+    public function getById(int $id): \MageSuite\OrderExport\Api\Data\ExportLogInterface
     {
         $export = $this->exportLogFactory->create();
         $export->load($id);
@@ -77,16 +77,18 @@ class ExportLogRepository implements \MageSuite\OrderExport\Api\ExportLogReposit
         return $export;
     }
 
-    public function save(\MageSuite\OrderExport\Api\Data\ExportLogInterface $export)
+    public function save(\MageSuite\OrderExport\Api\Data\ExportLogInterface $export): \MageSuite\OrderExport\Api\Data\ExportLogInterface
     {
         if (!$export->getExportedCount() && !$this->configuration->logAllExports()) {
             return $export;
         }
 
-        return $this->exportLogResource->save($export);
+        $this->exportLogResource->save($export);
+
+        return $export;
     }
 
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null)
+    public function getList(?\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null): \MageSuite\OrderExport\Api\Data\ExportLogSearchResultInterface
     {
         $collection = $this->collectionFactory->create();
 
