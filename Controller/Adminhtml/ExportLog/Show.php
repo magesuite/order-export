@@ -27,9 +27,9 @@ class Show extends \Magento\Backend\App\Action implements \Magento\Framework\App
         $this->exportLogRepository = $exportLogRepository;
     }
 
-    public function execute()
+    public function execute(): \Magento\Framework\Controller\ResultInterface
     {
-        $exportId = $this->getRequest()->getParam('export_id');
+        $exportId = (int)$this->getRequest()->getParam('export_id');
 
         try {
             $export = $this->exportLogRepository->getById($exportId);
